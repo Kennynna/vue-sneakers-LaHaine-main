@@ -1,0 +1,185 @@
+<script>
+
+</script>
+
+
+
+
+<template >
+  <header>
+    <div class="header__items">
+      <div class="header__items-logo">
+        <img src="/public/Logo.jpg" alt="#" />
+      </div>
+      <div class="header__items-links">
+        <router-link to="/">Главная</router-link>
+        <router-link to="/about">О нас</router-link>
+        <router-link to="/catalog">Каталог</router-link>
+        <router-link to="/">Контакты</router-link>
+        <router-link to="/">Отзывы</router-link>
+      </div>
+      <div class="basket">
+        <div class="basket__number">8</div>
+        <router-link to="/basket">
+          <svg
+            width="25px"
+            height="25px"
+            viewBox="0 0 24.00 24.00"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            transform="rotate(0)"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M19.5 9.5L18.7896 6.89465C18.5157 5.89005 18.3787 5.38775 18.0978 5.00946C17.818 4.63273 17.4378 4.34234 17.0008 4.17152C16.5619 4 16.0413 4 15 4M4.5 9.5L5.2104 6.89465C5.48432 5.89005 5.62128 5.38775 5.90221 5.00946C6.18199 4.63273 6.56216 4.34234 6.99922 4.17152C7.43808 4 7.95872 4 9 4"
+                stroke="#1C274C"
+                stroke-width="1.5"
+              ></path>
+              <path
+                d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4C15 4.55228 14.5523 5 14 5H10C9.44772 5 9 4.55228 9 4Z"
+                stroke="#1C274C"
+                stroke-width="1.5"
+              ></path>
+              <path
+                d="M8 13V17"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M16 13V17"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M12 13V17"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+              <path
+                d="M3.864 16.4552C4.40967 18.6379 4.68251 19.7292 5.49629 20.3646C6.31008 21 7.435 21 9.68486 21H14.3155C16.5654 21 17.6903 21 18.5041 20.3646C19.3179 19.7292 19.5907 18.6379 20.1364 16.4552C20.9943 13.0234 21.4233 11.3075 20.5225 10.1538C19.6217 9 17.853 9 14.3155 9H9.68486C6.14745 9 4.37875 9 3.47791 10.1538C2.94912 10.831 2.87855 11.702 3.08398 13"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              ></path>
+            </g></svg
+        ></router-link>
+      </div>
+      <div class="favorite">
+        <img
+          class="favorite_img"
+          src="/public/sneakersCart/Icons/bag-heart-svgrepo-com.svg"
+          alt=""
+        />
+      </div>
+      <div class="header__items-profile">
+        <a href="">Войти</a>
+        <a href="">Регистрация</a>
+      </div>
+
+    </div>
+  </header>
+</template>
+
+<style scoped>
+
+.favorite {
+  cursor: pointer;
+}
+.favorite_img {
+  height: 25px;
+  width: 25px;
+}
+.favorite__item {
+  cursor: pointer;
+}
+.basket__number {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 11;
+  font-size: 13px;
+  background-color: black;
+  color: whitesmoke;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  right: 0;
+  top: 0;
+}
+.basket {
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+}
+.header__items {
+  padding: 10px 20px;
+background: -webkit-linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
+background: -moz-linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
+background: linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  font-size: 18px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+-moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+
+}
+
+.header__items-links {
+  display: flex;
+  gap: 10px;
+}
+
+.header__items-profile {
+  display: flex;
+  gap: 15px;
+}
+a {
+  color: rgb(68, 60, 60);
+  transition: 0.2s;
+}
+a:hover {
+  font-weight: bolder;
+  color: rgb(6, 6, 6);
+}
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+
+@media (max-width: 790px){
+
+.header__items-links{
+    display: none;
+
+  }
+  .header__items{
+
+  }
+  img{
+      margin-left: 70%;
+      width: 50px;
+      height: 50px;
+  }
+
+
+
+    
+}
+.header__items-profile{
+  display: none;
+}
+
+</style>

@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;800;900&display=swap);
+
+*{
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Exo 2', sans-serif; 
+}
+
+#app {  
+  max-width: 1280px;
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+
+}
+
+
