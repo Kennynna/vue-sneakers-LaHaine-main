@@ -1,50 +1,40 @@
 <script setup>
+import axios from 'axios';
+
 import BasketItem from './BasketItem.vue'
-import { onMounted, ref } from 'vue'
-import axios from 'axios'
-import { computed} from 'vue';
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import Item from '../Item.vue';
 
-const Items = ref([]);
-onMounted(async () => {
-  try {
-    const { data } = await axios.get('https://52229c9522e6c31a.mokky.dev/basket');
-    Items.value = data;
-  } catch (error) {
-    alert('Ошибка запроса');
-  }
+const store = useStore();
+
+// Получаем данные о корзине из Vuex store
+
+onMounted(() => {
+  // Вызываем действие fetchCartItems после монтирования компонента
+  store.dispatch('fetchCartItems');
 });
-// Отслеживаем изменения в Items и обновляем счетчик в Vuex store
 
+const Items = computed(() => store.state.cartItems);
 
-// Метод для удаления товара из корзины
 const removeFromBasket = async (itemId) => {
-  console.log(itemId)
   try {
-    // Отправляем запрос на сервер для удаления товара
     const response = await axios.delete(`https://52229c9522e6c31a.mokky.dev/basket/${itemId}`)
-    // Проверяем, что сервер вернул успешный ответ
-    if (response.status === 200) {
-      // Находим индекс товара по id
-      const index = Items.value.findIndex((item) => item.id === itemId)
-      // Если товар найден, удаляем его из массива
-      if (index !== -1) {
-        Items.value.splice(index, 1)
-      }
-    } else {
-      console.error('Ошибка при удалении товара из корзины:', response.data)
-    }
+    await store.dispatch('fetchCartItems');
+    await store.dispatch('fetchItems');
   } catch (error) {
     console.error('Ошибка при удалении товара из корзины:', error)
   }
 }
 
 // Экспортируем функцию, чтобы она была доступна в шаблоне
+defineExpose({ removeFromBasket });
+
+// Вычисляем общую стоимость товаров в корзине
 const totalPrice = computed(() => {
   return Items.value.reduce((sum, item) => sum + item.price, 0)
 })
-defineExpose({ removeFromBasket });
 </script>
-
 
 <template>
   <div class="basket">
@@ -107,5 +97,19 @@ button {
   justify-content: center;
   flex-direction: column;
   height: 100%;
+}
+
+
+
+
+
+@media (max-width: 760px) {
+  .basket{
+    flex-direction: column;
+    align-items: center;
+  }
+  .basketleft, .basketright{
+    width: 100%;
+  }
 }
 </style>

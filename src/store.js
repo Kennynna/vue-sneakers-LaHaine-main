@@ -1,21 +1,43 @@
+// store.js
 import { createStore } from 'vuex';
-
+import axios from 'axios';
 export default createStore({
  state: {
+   items: [],
     cartItems: [],
-    cartItemCount: 0 // Добавляем новое состояние для хранения количества элементов в корзине
+    cartItemCount: 0
+    
  },
  mutations: {
-    addToCart(state, item) {
-      state.cartItems.push(item);
-      state.cartItemCount = state.cartItems.length; // Обновляем количество элементов в корзине
+    setCartItems(state, items) {
+      state.cartItems = items;
+      state.cartItemCount = items.length;
     },
-    removeFromCart(state, itemId) {
-      state.cartItems = state.cartItems.filter(item => item.id !== itemId);
-      state.cartItemCount = state.cartItems.length; // Обновляем количество элементов в корзине
+    setItems(state, items) {
+      state.items = items;
     }
  },
- getters: {
-    cartItemCount: state => state.cartItemCount // Геттер для получения количества элементов в корзине
- }
+ actions: {
+    //Получение всех товаров
+    async fetchItems({ commit }) {
+       try {
+         const { data } = await axios.get('https://52229c9522e6c31a.mokky.dev/items');
+         commit('setItems', data);
+         
+       } catch (error) {
+         console.error('Ошибка запроса:', error);
+       }
+     },
+     //Получение  товаров из корзины пользователя
+    async fetchCartItems({ commit }) {
+      try {
+        const { data } = await axios.get('https://52229c9522e6c31a.mokky.dev/basket');
+        commit('setCartItems', data);
+        
+      } catch (error) {
+         console.error('Ошибка запроса:', error);
+      }
+ },
+}
 });
+

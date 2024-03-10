@@ -1,25 +1,25 @@
+<!-- Catalog.vue -->
 <script setup>
 import Leftcontent from './Leftcontent.vue'
 import CatalogItems from './CatalogItems.vue'
-import axios from 'axios';
-import { onMounted, ref} from 'vue';
-const items = ref([])
-onMounted(async()=>{
-  try {
-    const {data} = await axios.get('https://52229c9522e6c31a.mokky.dev/items')
-    items.value= data
-  } catch (e) {
-    alert(e)
-  }
-})
+import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+// Получаем данные о товарах из Vuex store
+const items = computed(() => store.state.items);
+
+onMounted(() => {
+ // Вызываем действие fetchItems, если оно доступно в Vuex store
+ if (store.dispatch('fetchItems')) {
+    store.dispatch('fetchItems');
+ }
+});
 </script>
 
-
-
-
-
 <template>
-  <div class="container__catalog">
+ <div class="container__catalog">
     <Leftcontent />
     <div class="item__catalog">
       <CatalogItems 
@@ -32,9 +32,8 @@ onMounted(async()=>{
       :id="item.id"
       />
     </div>
-  </div>
+ </div>
 </template>
-
 <style scoped>
 .container__catalog {
   display: flex;
@@ -54,6 +53,34 @@ onMounted(async()=>{
   background-color: rgb(236 236 236);
   border-radius: 20px;
   padding: 20px 20px;
+
+}
+
+
+
+@media (max-width:760px) {
+  .container__catalog{
+    flex-direction: column;
+  }
+  .leftmenu{
+    width: max-content;
+    flex-direction: row;
+  }
+}
+
+
+@media (max-width:1060px) {
+  .container__catalog{
+    flex-direction: column;
+  }
+  .leftmenu{
+    width: max-content;
+    flex-direction: row;
+  }
+  .item__catalog{
+    justify-content: center;
+    row-gap: 10px;
+  }
 
 }
 </style>

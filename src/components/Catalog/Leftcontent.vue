@@ -54,4 +54,9 @@ li:hover {
   background-color: rgb(63, 65, 63);
   color: aliceblue;
 }
+@media (max-width:1060px) {
+  .sneakers_table-item{
+    padding: 3px 10px;
+  }
+}
 </style>

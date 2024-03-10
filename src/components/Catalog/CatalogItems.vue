@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import store from '@/store';
 
 export default {
   props: {
@@ -8,19 +9,24 @@ export default {
     price: Number,
     size: Array,
     imgUrl: Array // Добавлен новый пропс для массива URL изображений
+
   },
+
+
   data() {
     return {
       selectedSize: null // Инициализируем selectedSize как null
+
     };
   },
   methods: {
+    // 1Выбор размера
     selectSize(size) {
       this.selectedSize = size;
     },
 
+    //2  Добавление в корзину на бэк
     async AddToBasket() {
-
       try {
         const response = await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
           id: this.id,
@@ -29,12 +35,16 @@ export default {
           size: this.selectedSize,
           imgUrl: this.imgUrl
         });
-        alert('Okey'); // Выводит ответ сервера
+        // Вызываем действие fetchCartItems после успешного добавления товара в корзину
+        await store.dispatch('fetchCartItems');
+        // Получаем значение cartItemCount из Vuex store
+        const cartItemCount = store.state.cartItemCount;
       } catch (error) {
-        alert('Bad'); // Обрабатывает ошибки
+        alert('Произошла ошибка при добавлении товара в корзину.');
       }
-    }
+    },
   },
+
   mounted() {
     // Устанавливаем selectedSize первым элементом массива size, если он существует
     if (this.size && this.size.length > 0) {
@@ -54,7 +64,7 @@ export default {
       <div class="textItem">
         <p class="title">{{ title }}</p>
         <p class="price">{{ price }} руб</p>
-        <p class="sizeItem">Размеры на личии</p>
+        <p class="sizeItem">Размеры:</p>
         <p class="sizeItem"> US
           <span v-for="size in size" :key="size" @click="selectSize(size)"
             :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">

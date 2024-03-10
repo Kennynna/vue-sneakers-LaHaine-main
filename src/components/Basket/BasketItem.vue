@@ -4,7 +4,7 @@ export default {
     id: Number,
     title: String,
     price: Number,
-    size: Array,
+    size: Number,
     imgUrl: Array,
     remove: Function // Добавьте пропс для метода удаления
  },
