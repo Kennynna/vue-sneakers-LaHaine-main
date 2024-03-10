@@ -1,5 +1,6 @@
 <script setup>
 import Item from './Item.vue'
+import MainSwiper from './MainSwiper.vue';
 </script>
 
 
@@ -7,6 +8,9 @@ import Item from './Item.vue'
 <template>
 
   <div class="maincontentbody">
+    <MainSwiper>
+
+    </MainSwiper>
     <div class="mainContent">
       <h2>TOP 3 OF WEEK</h2>
     </div>

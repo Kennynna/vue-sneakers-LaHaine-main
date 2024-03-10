@@ -47,74 +47,33 @@ export default {
   <div class="itemCart">
     <div class="favorite__list">
       <div class="favorite__list-drawer">
-        <img
-          class="favorite__list-img"
-          :src="toggleImage ? favoriteSrcSelected : favoriteSrc"
-          alt="favorite"
-          @click="toggleFavorite"
-        />
+        <img class="favorite__list-img" :src="toggleImage ? favoriteSrcSelected : favoriteSrc" alt="favorite"
+          @click="toggleFavorite" />
       </div>
     </div>
     <div class="itemCart__mainImg">
       <div class="pagination">
         <img class="MainImg" :src="imgUrls[currentImageIndex]" alt="mainImg" />
         <!-- Используем текущее изображение из массива -->
-        <svg
-          key
-          class="prevImage"
-          v-if="currentImageIndex > 0"
-          @click="prevImage"
-          width="20px"
-          height="20px"
-          viewBox="-102.4 -102.4 1228.80 1228.80"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="#aaaaaa"
-          stroke="#aaaaaa"
-          stroke-width="102.4"
-        >
+        <svg key class="prevImage" v-if="currentImageIndex > 0" @click="prevImage" width="20px" height="20px"
+          viewBox="-102.4 -102.4 1228.80 1228.80" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#aaaaaa"
+          stroke="#aaaaaa" stroke-width="102.4">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke="#CCCCCC"
-            stroke-width="2.048"
-          ></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+            stroke-width="2.048"></g>
           <g id="SVGRepo_iconCarrier">
-            <path
-              d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
-              fill="#000000"
-            ></path>
-          </g></svg
-        ><!-- Кнопка для переключения на следующее изображение -->
-        <svg
-          class="nextImage"
-          v-if="currentImageIndex < imgUrls.length - 1"
-          @click="nextImage"
-          width="20px"
-          height="20px"
-          viewBox="-102.4 -102.4 1228.80 1228.80"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="#aaaaaa"
-          stroke="#aaaaaa"
-          stroke-width="102.4"
-        >
+            <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000"></path>
+          </g>
+        </svg><!-- Кнопка для переключения на следующее изображение -->
+        <svg class="nextImage" v-if="currentImageIndex < imgUrls.length - 1" @click="nextImage" width="20px"
+          height="20px" viewBox="-102.4 -102.4 1228.80 1228.80" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          fill="#aaaaaa" stroke="#aaaaaa" stroke-width="102.4">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke="#CCCCCC"
-            stroke-width="2.048"
-          ></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+            stroke-width="2.048"></g>
           <g id="SVGRepo_iconCarrier">
-            <path
-              d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
-              fill="#000000"
-              rotate="180"
-            ></path>
+            <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000" rotate="180">
+            </path>
           </g>
         </svg>
         <!-- Кнопка для переключения на предыдущее изображение -->
@@ -124,33 +83,19 @@ export default {
     <div class="size">
       <span class="size__text">Размер:</span>
       <p class="selected-size">{{ selectedSize }} US</p>
-      <svg
-        @click="toggleSizes"
-        ref="arrowUp"
-        class="arrowUp"
-        width="15px"
-        height="15px"
-        viewBox="0  0  24  24"
-        fill="black"
-        xmlns="http://www.w3.org/20000/svg"
-      >
+      <svg @click="toggleSizes" ref="arrowUp" class="arrowUp" width="15px" height="15px" viewBox="0  0  24  24"
+        fill="black" xmlns="http://www.w3.org/20000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
           <path
             d="M18.2929  15.2893C18.6834  14.8988  18.6834  14.2656  18.2929  13.8751L13.4007  8.9876666C12.6195  8.20726  11.3537  8.20757  10.5729  8.9888835L5.68257  13.8787C5.29205  14.2692  5.29205  14.9024  5.68257  15.2929C6.0731  15.6835  6.70626  15.6835  7.09679  15.2929L11.2824  11.1073C11.673  10.7168  12.3061  10.7168  12.696666  11.1073L16.8787  15.2893C17.2692  15.6798  17.9024  15.6798  18.2929  15.2893Z"
-            fill="#0F0F0F0F0F"
-          ></path>
+            fill="#0F0F0F0F0F"></path>
         </g>
       </svg>
       <div class="sizelist" ref="sizelist">
-        <span
-          class="size__item"
-          v-for="(sizeItem, index) in sizes"
-          :key="index"
-          @click="selectSize(sizeItem)"
-          >{{ sizeItem }}</span
-        >
+        <span class="size__item" v-for="(sizeItem, index) in sizes" :key="index" @click="selectSize(sizeItem)">{{
+          sizeItem }}</span>
       </div>
     </div>
     <button class="itemCart__btn" type="button">В Корзину</button>
@@ -162,8 +107,9 @@ export default {
 .itemCart {
   position: relative;
 }
-.favorite__list {
-}
+
+.favorite__list {}
+
 .favorite__list-drawer {
   opacity: 0;
   display: block;
@@ -191,6 +137,7 @@ export default {
   cursor: pointer;
   transition: 0.3s;
 }
+
 .favorite__list-img:hover {
   scale: 1.1;
 }
@@ -198,23 +145,28 @@ export default {
 .pagination {
   position: relative;
 }
+
 .nextImage,
 .prevImage {
   position: absolute;
   bottom: 30px;
   cursor: pointer;
 }
+
 .nextImage {
   right: 0px;
 }
+
 .prevImage {
   left: 0;
   transform: rotate(180deg);
 }
+
 .nextImage:hover {
   scale: 1.1;
   fill: black;
 }
+
 .prevImage:hover {
   scale: 1.1;
 }
