@@ -39,8 +39,14 @@ export default {
       console.log(this.toggleImage)
       this.toggleImage = !this.toggleImage // Переключаем значение toggleImage
     }
+    
   }
+  
 }
+</script>
+
+<script setup>
+import Buttonn from './button.vue'
 </script>
 
 <template>
@@ -98,17 +104,46 @@ export default {
           sizeItem }}</span>
       </div>
     </div>
-    <button class="itemCart__btn" type="button">В Корзину</button>
+    <Buttonn/>
     <p class="price">{{ price }} руб</p>
   </div>
 </template>
 
 <style scoped>
+.sizelist{
+  z-index: 100;
+}
+.itemCart__btn:hover {
+  background-color: black;
+  color: white;
+}
+.itemCart__btn {
+  padding: 5px 15px;
+  transition: 0.3s;
+  border: none;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  background-color: rgb(19, 46, 69);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.itemCart__mainImg {
+  overflow: hidden;
+}
+
+.MainImg {
+  transition: 0.2s;
+  image-orientation: flip;
+}
+
+.MainImg:hover {
+  scale: 1.2;
+}
+
 .itemCart {
   position: relative;
 }
-
-.favorite__list {}
 
 .favorite__list-drawer {
   opacity: 0;
@@ -119,7 +154,7 @@ export default {
   background-color: rgba(176, 174, 174, 0.697);
   top: 0;
   right: 0;
-  z-index: 10;
+  z-index: 16;
   transition: 0.3s;
 }
 

@@ -5,18 +5,13 @@ import BasketItem from './BasketItem.vue'
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Item from '../Item.vue';
-
+import Uinput from '../Uinput.vue';
 const store = useStore();
-
-// Получаем данные о корзине из Vuex store
-
 onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента
   store.dispatch('fetchCartItems');
 });
-
 const Items = computed(() => store.state.cartItems);
-
 const removeFromBasket = async (itemId) => {
   try {
     const response = await axios.delete(`https://52229c9522e6c31a.mokky.dev/basket/${itemId}`)
@@ -26,7 +21,6 @@ const removeFromBasket = async (itemId) => {
     console.error('Ошибка при удалении товара из корзины:', error)
   }
 }
-
 // Экспортируем функцию, чтобы она была доступна в шаблоне
 defineExpose({ removeFromBasket });
 
@@ -34,6 +28,9 @@ defineExpose({ removeFromBasket });
 const totalPrice = computed(() => {
   return Items.value.reduce((sum, item) => sum + item.price, 0)
 })
+
+
+//Удаление формы 
 </script>
 
 <template>
@@ -52,6 +49,7 @@ const totalPrice = computed(() => {
         <button>Оплатить</button>
       </div>
     </div>
+    <Uinput/> <!-- Добавлено условное отображение -->
   </div>
 </template>
 
@@ -76,6 +74,8 @@ button {
   margin-top: 5px;
   text-align: center;
   gap: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .basketleft {

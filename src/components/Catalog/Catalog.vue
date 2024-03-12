@@ -11,28 +11,21 @@ const store = useStore();
 const items = computed(() => store.state.items);
 
 onMounted(() => {
- // Вызываем действие fetchItems, если оно доступно в Vuex store
- if (store.dispatch('fetchItems')) {
+  // Вызываем действие fetchItems, если оно доступно в Vuex store
+  if (store.dispatch('fetchItems')) {
     store.dispatch('fetchItems');
- }
+  }
 });
 </script>
 
 <template>
- <div class="container__catalog">
+  <div class="container__catalog">
     <Leftcontent />
     <div class="item__catalog">
-      <CatalogItems 
-      v-for="item in items"
-      :key="item.id"
-      :title="item.title"
-      :price="item.price"
-      :size="item.size"
-      :imgUrl="item.imgUrl"
-      :id="item.id"
-      />
+      <CatalogItems v-for="item in items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
+        :imgUrl="item.imgUrl" :id="item.id" />
     </div>
- </div>
+  </div>
 </template>
 <style scoped>
 .container__catalog {
@@ -40,9 +33,10 @@ onMounted(() => {
   align-items: center;
   margin-top: 20px;
   gap: 20px;
-  
+
 }
-.item__catalog{
+
+.item__catalog {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -59,10 +53,11 @@ onMounted(() => {
 
 
 @media (max-width:760px) {
-  .container__catalog{
+  .container__catalog {
     flex-direction: column;
   }
-  .leftmenu{
+
+  .leftmenu {
     width: max-content;
     flex-direction: row;
   }
@@ -70,14 +65,16 @@ onMounted(() => {
 
 
 @media (max-width:1060px) {
-  .container__catalog{
+  .container__catalog {
     flex-direction: column;
   }
-  .leftmenu{
+
+  .leftmenu {
     width: max-content;
     flex-direction: row;
   }
-  .item__catalog{
+
+  .item__catalog {
     justify-content: center;
     row-gap: 10px;
   }

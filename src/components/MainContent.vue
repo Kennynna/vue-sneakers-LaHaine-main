@@ -1,6 +1,7 @@
 <script setup>
 import Item from './Item.vue'
 import MainSwiper from './MainSwiper.vue';
+import Uinput from './Uinput.vue'
 </script>
 
 
@@ -8,9 +9,10 @@ import MainSwiper from './MainSwiper.vue';
 <template>
 
   <div class="maincontentbody">
-    <MainSwiper>
-
-    </MainSwiper>
+    <h2 class="newItems">Новинки этого месяца</h2>
+    <div class="block-swiper">
+      <MainSwiper />
+    </div>
     <div class="mainContent">
       <h2>TOP 3 OF WEEK</h2>
     </div>
@@ -36,6 +38,10 @@ import MainSwiper from './MainSwiper.vue';
 </template>
 
 <style>
+.block-swiper{
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
 .slecet-filter {
   margin-top: 20px;
   margin: 0, auto;
@@ -66,6 +72,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid black;
 }
 
 .itemCart {
@@ -126,21 +133,7 @@ h2 {
   color: white;
 }
 
-.itemCart__btn {
-  padding: 5px 5px;
-  transition: 0.3s;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  background-color: aliceblue;
-  cursor: pointer;
-  font-size: 1.4rem;
-}
 
-.itemCart__btn:hover {
-  background-color: black;
-  color: white;
-}
 
 .sizelist {
   display: flex;
@@ -180,5 +173,10 @@ h2 {
   100% {
     height: 100%;
   }
+}
+
+.newItems {
+  padding-top: 40px;
+  font-size: clamp(1.625rem, 1.307rem + 1.59vw, 2.5rem)
 }
 </style>
