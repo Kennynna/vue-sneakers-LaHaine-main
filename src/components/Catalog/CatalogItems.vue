@@ -37,8 +37,6 @@ export default {
         });
         // Вызываем действие fetchCartItems после успешного добавления товара в корзину
         await store.dispatch('fetchCartItems');
-        // Получаем значение cartItemCount из Vuex store
-        const cartItemCount = store.state.cartItemCount;
       } catch (error) {
         alert('Произошла ошибка при добавлении товара в корзину.');
       }

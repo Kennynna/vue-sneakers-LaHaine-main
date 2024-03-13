@@ -1,16 +1,32 @@
 <script setup>
 import axios from 'axios';
-
 import BasketItem from './BasketItem.vue'
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import Item from '../Item.vue';
 import Uinput from '../Uinput.vue';
+
 const store = useStore();
+const isPaymentFormVisible = ref(false);
+
 onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента
   store.dispatch('fetchCartItems');
+  // Добавляем обработчик события для кнопки "Оплатить"
+  const paymentButton = document.querySelector('.basketright button');
+  paymentButton.addEventListener('click', () => {
+    if (store.state.cartItems.length > 0) {
+      isPaymentFormVisible.value = true;
+    }
+    else {
+      paymentButton.stopPropagation
+    }
+  });
 });
+const closePaymentForm = () => {
+  isPaymentFormVisible.value = false;
+};
+
 const Items = computed(() => store.state.cartItems);
 const removeFromBasket = async (itemId) => {
   try {
@@ -28,28 +44,25 @@ defineExpose({ removeFromBasket });
 const totalPrice = computed(() => {
   return Items.value.reduce((sum, item) => sum + item.price, 0)
 })
-
-
-//Удаление формы 
 </script>
 
 <template>
   <div class="basket">
     <div class="basketleft">
       <h3>Корзина</h3>
-      <BasketItem v-for="item in Items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
+      <p v-if="Items.length === 0">Ваша корзина пуста</p>
+      <BasketItem v-else v-for="item in Items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
         :imgUrl="item.imgUrl" :id="item.id" :remove="removeFromBasket" />
     </div>
     <div class="basketright">
       <div class="textcontent">
         <h3>Оформление заказа</h3>
-
         <p>Всего позиций : {{ Items.length }}</p>
         <p>Итого: {{ totalPrice }} руб</p>
         <button>Оплатить</button>
       </div>
     </div>
-    <Uinput/> <!-- Добавлено условное отображение -->
+    <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" /> <!-- Добавлено условное отображение -->
   </div>
 </template>
 
@@ -104,11 +117,13 @@ button {
 
 
 @media (max-width: 760px) {
-  .basket{
+  .basket {
     flex-direction: column;
     align-items: center;
   }
-  .basketleft, .basketright{
+
+  .basketleft,
+  .basketright {
     width: 100%;
   }
 }

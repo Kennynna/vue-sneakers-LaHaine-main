@@ -1,16 +1,7 @@
 <script >
 export default {
-    data(){
-        return{
-    
-        }
-    },
-    methods: {
-        closeForm(){
-            this.$refs.FormActive.classList.remove('active')
-            console.log('delete')
-        }
-    }
+ props: ['closeForm'],
+ // Закрытие формы
 }
 
 
@@ -20,7 +11,7 @@ export default {
 <template>
 
 <div class="userForm active" ref="FormActive">
-        <button class="userForm__closed-btn">X</button>
+        <button @click="closeForm" class="userForm__closed-btn">X</button>
         <div class="userFrom__text">
             <p>Отправление заявки на покупку</p>
         </div>
@@ -33,7 +24,7 @@ export default {
         </form>
         <div class="userFrom__btn">
             <button>Отправить заявку</button>
-            <button @click ="closeForm">выйти</button>
+            <button @click="closeForm">выйти</button>
         </div>
     </div>
 </template>

@@ -5,8 +5,6 @@ export default createStore({
  state: {
    items: [],
     cartItems: [],
-    cartItemCount: 0
-    
  },
  mutations: {
     setCartItems(state, items) {
