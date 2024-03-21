@@ -3,8 +3,7 @@ import axios from 'axios';
 import BasketItem from './BasketItem.vue'
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import Item from '../Item.vue';
-import Uinput from '../Uinput.vue';
+import Uinput from './Uinput.vue';
 
 const store = useStore();
 const isPaymentFormVisible = ref(false);
@@ -30,7 +29,7 @@ const closePaymentForm = () => {
 const Items = computed(() => store.state.cartItems);
 const removeFromBasket = async (itemId) => {
   try {
-    const response = await axios.delete(`https://52229c9522e6c31a.mokky.dev/basket/${itemId}`)
+    await axios.delete(`https://52229c9522e6c31a.mokky.dev/basket/${itemId}`)
     await store.dispatch('fetchCartItems');
     await store.dispatch('fetchItems');
   } catch (error) {
@@ -49,8 +48,8 @@ const totalPrice = computed(() => {
 <template>
   <div class="basket">
     <div class="basketleft">
-      <h3>Корзина</h3>
-      <p v-if="Items.length === 0">Ваша корзина пуста</p>
+      <h2>Корзина</h2>
+      <p v-if="Items.length === 0" class="text-red-400 text-2xl tracking-wide uppercase ">Ваша корзина пуста</p>
       <BasketItem v-else v-for="item in Items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
         :imgUrl="item.imgUrl" :id="item.id" :remove="removeFromBasket" />
     </div>
@@ -62,7 +61,8 @@ const totalPrice = computed(() => {
         <button>Оплатить</button>
       </div>
     </div>
-    <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" /> <!-- Добавлено условное отображение -->
+    <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" :OrderArray="Items" :TotalPrice="totalPrice" :Items="Items"/>
+    <!-- Добавлено условное отображение -->
   </div>
 </template>
 
@@ -112,10 +112,16 @@ button {
   height: 100%;
 }
 
+h2{
+  font-size: 29px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
 
 
-
-
+p{
+  font-weight: 700;
+}
 @media (max-width: 760px) {
   .basket {
     flex-direction: column;

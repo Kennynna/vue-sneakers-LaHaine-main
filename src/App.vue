@@ -1,8 +1,6 @@
 <script setup>
-import HeaderVue from './components/Header.vue'
+import HeaderVue from './components/Pages/Header.vue'
 import { ref } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
 
 // Создаем переменную состояния для отслеживания видимости мобильного меню
 const isMobileMenuVisible = ref(false)
@@ -28,23 +26,23 @@ const toggleMobileMenu = () => {
       <span class="spannav2"></span>
       <span class="spannav3"></span>
     </div>
-    <div class="mob_header" v-show="isMobileMenuVisible">
+    <div class="mob_header text-slate-200" v-show="isMobileMenuVisible">
       <div class="header__items-profile">
-        <a class="header__link-sign" @click="toggleMobileMenu">Войти</a>
+        <a class="header__link-sign " @click="toggleMobileMenu">Войти</a>
         <a class="header__link-registr" @click="toggleMobileMenu">Регистрация</a>
       </div>
-      <router-link class="header__link-item" to="/" @click="toggleMobileMenu">Главная</router-link>
-      <router-link class="header__link-item" to="/about" @click="toggleMobileMenu">О нас</router-link>
-      <router-link class="header__link-item" to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
-      <router-link class="header__link-item" to="/" @click="toggleMobileMenu">Контакты</router-link>
-      <router-link class="header__link-item" to="/" @click="toggleMobileMenu">Отзывы</router-link>
+      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Главная</router-link>
+      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/about" @click="toggleMobileMenu">О нас</router-link>
+      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
+      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Контакты</router-link>
+      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Отзывы</router-link>
     </div>
     <HeaderVue />
     <router-view></router-view>
   </div>
 </template>
 
-<style>
+<style scoped>
 body {
   background: -webkit-linear-gradient(225deg, rgb(184, 224, 215), rgb(255, 255, 255));
   background: -moz-linear-gradient(225deg, rgb(184, 224, 215), rgb(255, 255, 255));
@@ -62,7 +60,8 @@ body {
   background-color: rgba(31, 31, 30, 0.982);
   z-index: 100;
   text-align: center;
-  justify-content: space-around;
+  gap: 30px;
+  justify-content: center;
 
 }
 

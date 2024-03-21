@@ -18,6 +18,7 @@ main {
   width: 15%;
 }
 .main_content {
+  margin-top: 20px;
   width: 100%;
   text-align: center;
   justify-content: center;

@@ -1,4 +1,3 @@
-<!-- Catalog.vue -->
 <script setup>
 import Leftcontent from './Leftcontent.vue'
 import CatalogItems from './CatalogItems.vue'
@@ -8,25 +7,33 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 // Получаем данные о товарах из Vuex store
-const items = computed(() => store.state.items);
 
-onMounted(() => {
-  // Вызываем действие fetchItems, если оно доступно в Vuex store
-  if (store.dispatch('fetchItems')) {
-    store.dispatch('fetchItems');
-  }
-});
+// Асинхронная функция для загрузки данных
+const loadData = async () => {
+  await store.dispatch('fetchItems'); // Замените на действие, которое загружает данные
+  // Выполните другие асинхронные операции, если они необходимы
+};
+
+// Вызовите асинхронную функцию внутри onMounted
+onMounted(loadData);
+const items = computed(() => store.state.items);
 </script>
 
 <template>
   <div class="container__catalog">
     <Leftcontent />
     <div class="item__catalog">
-      <CatalogItems v-for="item in items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
-        :imgUrl="item.imgUrl" :id="item.id" />
+      <CatalogItems v-for="(item, index) in items" :key="index" :catalogItem="item" />
     </div>
   </div>
 </template>
+
+
+
+
+
+
+
 <style scoped>
 .container__catalog {
   display: flex;
@@ -38,7 +45,7 @@ onMounted(() => {
 
 .item__catalog {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   gap: 1px;
   flex-grow: 1;

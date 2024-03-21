@@ -1,7 +1,6 @@
 <script setup>
-import Item from './Item.vue'
-import MainSwiper from './MainSwiper.vue';
-import Uinput from './Uinput.vue'
+import Item from '../../Item.vue'
+import MainSwiper from '../../MainSwiper.vue';
 </script>
 
 

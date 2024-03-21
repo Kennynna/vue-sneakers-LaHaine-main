@@ -13,6 +13,7 @@ export default {
       this.remove(this.id); // Вызывайте метод удаления, переданный через пропс
     }
   }
+
 }
 </script>
 

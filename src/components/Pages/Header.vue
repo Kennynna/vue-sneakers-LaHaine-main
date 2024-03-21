@@ -1,5 +1,5 @@
 <script setup>
-import { computed,onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -22,9 +22,10 @@ const cartItemCount = computed(() => store.state.cartItemCount);
         <router-link to="/catalog">Каталог</router-link>
         <router-link to="/">Контакты</router-link>
         <router-link to="/">Отзывы</router-link>
+
       </div>
       <div class="basket">
-        <div class="basket__number">{{cartItemCount}}</div>
+        <div class="basket__number">{{ cartItemCount }}</div>
         <router-link to="/basket">
           <svg width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
             transform="rotate(0)">
