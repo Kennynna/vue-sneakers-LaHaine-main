@@ -32,38 +32,21 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted} from 'vue';
 import { useStore } from 'vuex';
-import { useRoute , useRouter } from 'vue-router'; // Импортируем useRoute
-
+import { useRouter } from 'vue-router'; // Импортируем useRoute
 import CatalogItems from './Pages/Catalog/CatalogItems.vue';
-
 const store = useStore();
-const route = useRoute(); // Получаем текущий маршрут
-const router = useRouter(); // Получаем текущий маршрут
-const itemId = computed(() => route.params.id); // Получаем id товара из параметров маршрута
 const itemCard = computed(() => store.state.ItemCard);
-const Items = computed(() => store.state.items);
+const router = useRouter(); // Получаем текущий маршрут
 router.push({ name: 'ItemPage', params: { id: itemCard.value.id } });
-const randomIndices = (n, max) => {
-    const set = new Set();
-    while (set.size < n) {
-        set.add(Math.floor(Math.random() * max));
-    }
-    return Array.from(set);
-};
-
-const randomItems = computed(() => {
-    const indices = randomIndices(3, Items.value.length); // Выбираем 3 случайных товара
-    return indices.map(index => Items.value[index]);
+onMounted(() => {
+ store.dispatch('updateRandomItems');
 });
+//Рандомные товары снизу
+const randomItems = computed(() =>  store.state.randomItems);
 
-onMounted(async () => {
-    // Загрузка данных о товаре по id
-    await store.dispatch('fetchItemById', itemId.value);
-    await store.dispatch('updateRandomItems');
-    // Дополнительная логика, если необходимо
-});
+
 </script>
 
 <style scoped>

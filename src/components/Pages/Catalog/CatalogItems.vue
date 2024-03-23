@@ -43,7 +43,6 @@ export default {
     const selectSize = (size) => {
       selectedSize.value = size;
     };
-
     const AddToBasket = async () => {
       try {
         await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
@@ -58,14 +57,14 @@ export default {
         alert('Произошла ошибка при добавлении товара в корзину.');
       }
     };
-
     onMounted(() => {
       if (props.catalogItem.size && props.catalogItem.size.length > 0) {
         selectedSize.value = props.catalogItem.size[0];
       };
     });
-
-    const viewItem =  async () => {
+    
+    const viewItem = async () => {
+      // Добавление товара в ItemCard
       store.dispatch('addItemCard', {
         id: props.catalogItem.id,
         title: props.catalogItem.title,
@@ -73,8 +72,9 @@ export default {
         size: props.catalogItem.size,
         imgUrl: props.catalogItem.imgUrl
       });
-      router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
-      
+      store.dispatch('updateRandomItems');
+      // Перенаправление на страницу товара
+     await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
     };
 
     return {
@@ -88,8 +88,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .sizeItem {
   text-align: start;
   padding: 0 10px;
