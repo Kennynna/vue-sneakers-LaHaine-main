@@ -16,10 +16,11 @@ const formatDate = (dateString) => {
 
 
 <template>
-    <div class="order flex items-center ">
+    <div class="order flex-cloum items-center ">
         <div class="order__title"> </div>
         <div class="order__img">
             <img v-for="(item, index) in order.OrderArray" :key="index" :src="item.imgUrl" alt="">
+            <p class="oreder__img-title" v-for="(item, index) in order.OrderArray" :key="index">{{ item.title }}</p>
         </div>
 
         <div class="order__user">
@@ -33,6 +34,9 @@ const formatDate = (dateString) => {
 </template>
 
 <style scoped>
+.order__img{
+    display: flex;
+}
 span {
     font-style: italic;
 }
@@ -40,5 +44,8 @@ span {
 img {
     height: 100px;
     width: 100px;
+}
+.order{
+    border-bottom: 1px solid black;
 }
 </style>

@@ -40,6 +40,10 @@ export default {
         };
         return { data, inputHandler, AddOrder };
     },
+
+    UnOnMunted() {
+        console.log('unmounted');
+    }
 }
 
 </script>

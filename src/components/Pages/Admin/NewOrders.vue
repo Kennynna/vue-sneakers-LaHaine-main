@@ -6,7 +6,7 @@
           <option value="">Названию</option>
         </select>
       </div>
-      <div class="content flex gap-10 flex-wrap">
+      <div class="content flex-column  flex-wrap">
         <NewOrdersItem v-for="(order, index) in OrdersUser" :key="index" :order="order" /> 
       </div>
 </template>

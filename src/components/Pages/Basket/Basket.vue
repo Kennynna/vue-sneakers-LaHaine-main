@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import BasketItem from './BasketItem.vue'
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, onUnmounted, onBeforeUnmount } from 'vue';
 import { useStore } from 'vuex';
 import Uinput from './Uinput.vue';
 
@@ -25,8 +25,8 @@ onMounted(() => {
 const closePaymentForm = () => {
   isPaymentFormVisible.value = false;
 };
-
 const Items = computed(() => store.state.cartItems);
+
 const removeFromBasket = async (itemId) => {
   try {
     await axios.delete(`https://52229c9522e6c31a.mokky.dev/basket/${itemId}`)
@@ -43,6 +43,7 @@ defineExpose({ removeFromBasket });
 const totalPrice = computed(() => {
   return Items.value.reduce((sum, item) => sum + item.price, 0)
 })
+
 </script>
 
 <template>

@@ -6,12 +6,9 @@ import { useStore } from 'vuex';
 
 const store = useStore();
 
-// Получаем данные о товарах из Vuex store
-
 // Асинхронная функция для загрузки данных
 const loadData = async () => {
-  await store.dispatch('fetchItems'); // Замените на действие, которое загружает данные
-  // Выполните другие асинхронные операции, если они необходимы
+  await store.dispatch('fetchItems');
 };
 
 // Вызовите асинхронную функцию внутри onMounted

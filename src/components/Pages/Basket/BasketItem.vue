@@ -1,4 +1,6 @@
 <script>
+import { onUnmounted } from 'vue';
+
 export default {
   props: {
     id: Number,
@@ -15,6 +17,10 @@ export default {
   }
 
 }
+onUnmounted(() =>{
+  window.removeEventListener('click', this.handleRemove)
+  console.log('Я удалил обработчик')
+})
 </script>
 
 
@@ -34,6 +40,7 @@ export default {
   </div>
 
 </template>
+
 
 
 <style scoped>

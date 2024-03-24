@@ -9,7 +9,7 @@
         <p class="price">{{ catalogItem.price }} руб</p>
         <p class="sizeItem">Размеры:</p>
         <p class="sizeItem"> US
-          <span v-for="size in catalogItem.size" :key="size" @click="selectSize(size)"
+          <span v-for="(size, index) in catalogItem.size" :key="index" @click="selectSize(size)"
             :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
             {{ size }}
           </span>
@@ -28,7 +28,7 @@
 <script>
 import axios from 'axios';
 import { useStore } from 'vuex';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -43,6 +43,7 @@ export default {
     const selectSize = (size) => {
       selectedSize.value = size;
     };
+
     const AddToBasket = async () => {
       try {
         await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
@@ -57,26 +58,32 @@ export default {
         alert('Произошла ошибка при добавлении товара в корзину.');
       }
     };
-    onMounted(() => {
-      if (props.catalogItem.size && props.catalogItem.size.length > 0) {
+    onMounted( () => {
+      if (props.catalogItem.size) {
         selectedSize.value = props.catalogItem.size[0];
-      };
+      }else{
+        console.log('Что то не так')
+      }
     });
-    
+
     const viewItem = async () => {
       // Добавление товара в ItemCard
-      store.dispatch('addItemCard', {
+      await store.dispatch('addItemCard', {
         id: props.catalogItem.id,
         title: props.catalogItem.title,
         price: props.catalogItem.price,
         size: props.catalogItem.size,
         imgUrl: props.catalogItem.imgUrl
       });
-      store.dispatch('updateRandomItems');
+      await store.dispatch('updateRandomItems');
       // Перенаправление на страницу товара
-     await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
+      await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
     };
 
+    onUnmounted(() => {
+      window.removeEventListener('click', viewItem)
+      window.removeEventListener('click', AddToBasket)
+    });
     return {
       selectedSize,
       selectSize,
