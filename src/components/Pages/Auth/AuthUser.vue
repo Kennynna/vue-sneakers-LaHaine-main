@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-
+import { useAuthStore } from '@/auth';
 //косметический код (Тублер для класса active  и v-if при регистации либо входа)
 const useRegister = ref(false)
 const showReg = () => {
@@ -10,20 +10,20 @@ const showLog = () => {
   useRegister.value = false
 }
 
-
+const authStore = useAuthStore()
 
 //лоигка авторизации
 const email = ref('')
 const password = ref('')
 
-const signUp = async () =>{
-  
+const signUp = async () => {
+  await authStore.signup({email: email.value, password: password.value})
 }
 </script>
 
 <template>
   <div class="body__conent">
-    <form class="auth flex flex-col justify-between " action="auth">
+    <form class="auth flex flex-col justify-between " action="auth" @submit.prevent="signUp">
       <div class="auth__block flex justify-between">
         <p @click="showLog" :class="{ active: !useRegister }" class="auth__text-reg shadow-md ">Вход</p>
         <p @click="showReg" :class="{ active: useRegister }" class="auth__text-log shadow-md ">Регистация</p>
@@ -34,7 +34,7 @@ const signUp = async () =>{
         <input type="password" v-model="password" placeholder="Введите пароль">
         <input v-if="useRegister" type="password" placeholder="Подтвердите  пароль">
       </div>
-      <button v-if="useRegister" class="reg__btn">Зарегистрироваться</button>
+      <button v-if="useRegister" class="reg__btn" @click="signUp" type="submit">13:00</button>
       <button v-if="!useRegister" class="auth__btn" label="Sinh up">Вход</button>
       <p v-if="!useRegister" class="text-center font-medium">Не помню пароль</p>
     </form>
@@ -52,11 +52,13 @@ const signUp = async () =>{
   transition: 0.3s;
   align-self: flex-end;
 }
+
 .auth__text-reg:hover,
 .auth__text-log:hover {
   background-color: black;
   color: white
 }
+
 .reg__btn,
 .auth__btn {
   border-radius: 10px;
