@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-
+import 'primeicons/primeicons.css'
 const store = useStore();
 onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента
@@ -50,8 +50,9 @@ const cartItemCount = computed(() => store.state.cartItemCount);
             </g>
           </svg></router-link>
       </div>
-      <div class="favorite">
-        <img class="favorite_img" src="/public/sneakersCart/Icons/bag-heart-svgrepo-com.svg" alt="" />
+      <div class="user flex align-items-center gap-5">
+        <p>User</p>
+        <router-link to="/auth"><i class="pi pi-user" style="font-size: 1.5rem"></i></router-link>
       </div>
       <div class="header__items-profile">
         <a href="">Войти</a>
@@ -98,17 +99,14 @@ const cartItemCount = computed(() => store.state.cartItemCount);
 
 .header__items {
   padding: 10px 20px;
-  background: -webkit-linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
-  background: -moz-linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
-  background: linear-gradient(225deg, rgb(248, 252, 251), rgb(241, 248, 249));
+  background-color: rgba(160, 144, 144, 0.216);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: none;
   font-size: 18px;
   border-radius: 20px;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
-  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
 
 }
@@ -148,8 +146,11 @@ img {
   }
 
   .header__items {
+    position: fixed;
     justify-content: start;
     gap: 20px;
+    width: 100%;
+    top: 0;
   }
 
   img {

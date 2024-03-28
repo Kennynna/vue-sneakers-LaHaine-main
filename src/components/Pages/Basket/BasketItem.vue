@@ -1,6 +1,5 @@
 <script>
 import { onUnmounted } from 'vue';
-
 export default {
   props: {
     id: Number,
@@ -17,7 +16,7 @@ export default {
   }
 
 }
-onUnmounted(() =>{
+onUnmounted(() => {
   window.removeEventListener('click', this.handleRemove)
   console.log('Я удалил обработчик')
 })
@@ -35,7 +34,15 @@ onUnmounted(() =>{
       <p>Размер: <span>{{ size }} US</span></p>
     </div>
     <div class="basketItem__btn">
-      <button @click="handleRemove">X</button>
+      <svg @click="handleRemove" width="30px" height="30px" viewBox="0 0 24 24" fill="none" class="close__svg "
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.16998 14.83L14.83 9.17004" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M14.83 14.83L9.16998 9.17004" stroke="#292D32" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#292D32"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
     </div>
   </div>
 
@@ -60,15 +67,11 @@ img {
   border-radius: 10px;
 }
 
-button {
-  color: rgb(59, 59, 59);
+.close__svg {
   border: none;
   cursor: pointer;
-  padding: 5px 8px;
-  text-align: center;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(106, 38, 222, 0.2) inset;
-  -moz-box-shadow: 0px 5px 10px 2px rgba(106, 38, 222, 0.2) inset;
-  box-shadow: 0px 5px 10px 2px rgba(106, 38, 222, 0.2) inset;
+
+
 }
 
 .basketItem {

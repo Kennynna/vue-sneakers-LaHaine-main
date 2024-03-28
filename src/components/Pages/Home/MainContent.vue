@@ -59,7 +59,8 @@ import MainSwiper from '../../MainSwiper.vue';
 .maincontentbody {
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
-  padding: 10px 1px+
+  padding: 10px 1px;
+  overflow: hidden;
 }
 
 h2 {
@@ -72,6 +73,17 @@ h2 {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid black;
+  animation-name: aos;
+  animation-duration: 2s;
+}
+
+@keyframes aos {
+  from{
+    transform: translateX(-100%);
+  }
+  to{
+    transform: translateX(0);
+  }
 }
 
 .itemCart {

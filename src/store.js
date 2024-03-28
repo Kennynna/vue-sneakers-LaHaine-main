@@ -77,7 +77,7 @@ export default createStore({
       const randomItems = indices.map(index => state.items[index]);
       commit('setRandomItems', randomItems);
     },
-
+    
   }
 });
 

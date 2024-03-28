@@ -10,7 +10,7 @@
         <p class="sizeItem">Размеры:</p>
         <p class="sizeItem"> US
           <span v-for="(size, index) in catalogItem.size" :key="index" @click="selectSize(size)"
-            :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
+            :style="{ color: selectedSize === size  ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
             {{ size }}
           </span>
         </p>
@@ -43,7 +43,6 @@ export default {
     const selectSize = (size) => {
       selectedSize.value = size;
     };
-
     const AddToBasket = async () => {
       try {
         await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
@@ -200,7 +199,7 @@ img {
 }
 
 .title {
-  max-height: 200px;
+ height: 60px;
   max-width: 100%;
   padding: 0 10px;
 }

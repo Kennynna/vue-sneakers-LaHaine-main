@@ -28,8 +28,6 @@ const toggleMobileMenu = () => {
     </div>
     <div class="mob_header text-slate-200" v-show="isMobileMenuVisible">
       <div class="header__items-profile">
-        <a class="header__link-sign " @click="toggleMobileMenu">Войти</a>
-        <a class="header__link-registr" @click="toggleMobileMenu">Регистрация</a>
       </div>
       <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Главная</router-link>
       <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/about" @click="toggleMobileMenu">О нас</router-link>
@@ -110,6 +108,8 @@ body {
   .mob_header {
     margin: 0;
     display: flex;
+    position: absolute;
+    top: -30px;
   }
 
   .mobnav {
@@ -164,6 +164,8 @@ body {
  border-radius: 10px;
 }
 .header__link-item{
+  text-align: center;
+  height: 50px;
   font-size: 23px ;
   background-color: black;
   border-radius: 10px;

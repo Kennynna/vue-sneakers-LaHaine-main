@@ -15,7 +15,7 @@ import AddPosition from './components/Pages/Admin/AddPosition.vue';
 import ViewAllProducts from './components/Pages/Admin/ViewAllProducts.vue'
 import ItemPage from './components/ItemPage.vue';
 import './index.css'
-
+import AuthUser from './components/Pages/Auth/AuthUser.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,7 +34,8 @@ const router = createRouter({
                 // другие дочерние маршруты...
             ]
         },
-        { path: '/item/:id', name: 'ItemPage', component: ItemPage, props: true }, // Новый маршрут для страницы товара
+        { path: '/item/:id', name: 'ItemPage', component: ItemPage, props: true },
+        { path: '/auth', name: 'Auth', component: AuthUser}, 
     ]
 });
 

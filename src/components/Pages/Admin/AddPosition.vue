@@ -46,11 +46,11 @@ const inputImgUrl = (index, e) => {
 }
 
 const addOrderToItemss = async () => {
-    try{
+    try {
         await axios.post('https://52229c9522e6c31a.mokky.dev/items', data.value);
         alert('Успешно добавили')
-    }   
-    catch{
+    }
+    catch {
         alert('Не удалось отправить')
     }
 
