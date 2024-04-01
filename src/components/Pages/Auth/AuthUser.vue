@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/auth';
+import Message from 'primevue/message';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 //косметический код (Тублер для класса active  и v-if при регистации либо входа)
 const useRegister = ref(false)
 const showReg = () => {
@@ -15,15 +19,22 @@ const authStore = useAuthStore()
 //лоигка авторизации
 const email = ref('')
 const password = ref('')
-
+//регистрация
 const signUp = async () => {
-  await authStore.signup({email: email.value, password: password.value})
+  await authStore.auth({ email: email.value, password: password.value }, 'signInWithPassword')
+}
+//авторизация
+const signIn = async () => {
+  await authStore.auth({ email: email.value, password: password.value }, 'signup')
+  await router.push('/catalog')
 }
 </script>
 
 <template>
   <div class="body__conent">
     <form class="auth flex flex-col justify-between " action="auth" @submit.prevent="signUp">
+      <Message v-if="authStore.error" severity="warn"> {{ authStore.error }} </Message>
+      <Message v-if="authStore.isAuthenticated" severity="warn"> Успешно ! </Message>
       <div class="auth__block flex justify-between">
         <p @click="showLog" :class="{ active: !useRegister }" class="auth__text-reg shadow-md ">Вход</p>
         <p @click="showReg" :class="{ active: useRegister }" class="auth__text-log shadow-md ">Регистация</p>
@@ -34,8 +45,8 @@ const signUp = async () => {
         <input type="password" v-model="password" placeholder="Введите пароль">
         <input v-if="useRegister" type="password" placeholder="Подтвердите  пароль">
       </div>
-      <button v-if="useRegister" class="reg__btn" @click="signUp" type="submit">13:00</button>
-      <button v-if="!useRegister" class="auth__btn" label="Sinh up">Вход</button>
+      <button v-if="useRegister" class="reg__btn" @click="signUp" label="Sign up">Зарегистрироваться</button>
+      <button v-if="!useRegister" class="auth__btn" @click="signIn" label="Sign in">Войти</button>
       <p v-if="!useRegister" class="text-center font-medium">Не помню пароль</p>
     </form>
   </div>

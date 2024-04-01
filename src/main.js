@@ -21,6 +21,10 @@ import { createPinia } from 'pinia'
 import { initializeApp } from "firebase/app";
 
 
+//Prenir
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-green/theme.css'
+
 //pinia
 const pinia = createPinia()
 
@@ -69,4 +73,5 @@ createApp(App)
     .use(store)
     .use(router)
     .use(pinia)
+    .use(PrimeVue)
     .mount('#app')

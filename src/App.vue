@@ -1,6 +1,15 @@
 <script setup>
 import HeaderVue from './components/Pages/Header.vue'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useAuthStore } from './auth'; // Путь к вашему файлу auth.js может отличаться
+
+const authStore = useAuthStore();
+const userInfo = computed(() => {
+  authStore.userInfo.value
+  console.log('компонент изменился')
+  console.log(authStore.userInfo.email)
+  return authStore.userInfo.email;
+});
 
 // Создаем переменную состояния для отслеживания видимости мобильного меню
 const isMobileMenuVisible = ref(false)
@@ -9,6 +18,8 @@ const isMobileMenuVisible = ref(false)
 const toggleMobileMenu = () => {
   isMobileMenuVisible.value = !isMobileMenuVisible.value
 }
+const emailUser = ref('User')
+emailUser.value = userInfo
 </script>
 
 
@@ -35,7 +46,7 @@ const toggleMobileMenu = () => {
       <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Контакты</router-link>
       <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Отзывы</router-link>
     </div>
-    <HeaderVue />
+    <HeaderVue :email="emailUser.value" />
     <router-view></router-view>
   </div>
 </template>

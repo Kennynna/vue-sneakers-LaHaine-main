@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted} from 'vue';
 import { useStore } from 'vuex';
 import 'primeicons/primeicons.css'
 const store = useStore();
@@ -9,6 +9,12 @@ onMounted(() => {
 });
 // Получаем значение cartItemCount из Vuex store
 const cartItemCount = computed(() => store.state.cartItemCount);
+
+const props = defineProps({
+ email: String,
+});
+
+
 </script>
 <template>
   <header>
@@ -51,7 +57,7 @@ const cartItemCount = computed(() => store.state.cartItemCount);
           </svg></router-link>
       </div>
       <div class="user flex align-items-center gap-5">
-        <p>User</p>
+        <p>{{ props.email === ''? 'User': props.email}}</p>
         <router-link to="/auth"><i class="pi pi-user" style="font-size: 1.5rem"></i></router-link>
       </div>
       <div class="header__items-profile">
