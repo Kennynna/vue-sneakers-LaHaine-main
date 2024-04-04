@@ -1,6 +1,7 @@
 <script setup>
 import Item from '../../Item.vue'
 import MainSwiper from '../../MainSwiper.vue';
+import PresentInfo from '@/components/Pages/Home/PresentInfo.vue'
 </script>
 
 
@@ -32,18 +33,119 @@ import MainSwiper from '../../MainSwiper.vue';
         'https://sun9-74.userapi.com/ZHCGNedQnQQ7Mvm1TBO8DWPPtkSaQaD1qm0vzg/zqGpHblnBmA.jpg'
       ]" />
     </div>
+    <div class="logo-text-block">
+      <h2 class="logo-text logo-name font-bold text-9xl mt-40 tracking-wide"> La Haine</h2>
+      <h2 class="logo-text logo-name font-bold text-3xl tracking-wide">SINCE 2016</h2>
+      <p class="logo-desc logo-name font-bold text-6xl mb-20 mt-10 tracking-wide"> The World Is <span class="par"><span
+            class="Y">Y</span></span>our</p>
+    </div>
+    <PresentInfo />
   </div>
 
 </template>
 
 <style>
-.block-swiper{
+.logo-text {
+  opacity: 0;
+  transform-style: flat;
+  animation-name: lahaine;
+  animation-duration: 2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes lahaine {
+  from {
+    scale: 0.1;
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    scale: 1;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.logo-desc {
+  opacity: 0;
+  transform: rotateZ(-10deg);
+  animation-name: logo-text;
+  animation-duration: 2s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes logo-text {
+  from {
+    opacity: 0;
+    transform: rotateX(30deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateX(0deg);
+    transform: rotateZ(-5deg);
+  }
+}
+
+
+
+@keyframes upercase {
+  from {
+    text-transform: lowercase;
+  }
+
+  to {
+    text-transform: uppercase;
+  }
+}
+
+.par {
+  position: relative;
+}
+
+.Y::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 50%;
+  height: 100%;
+  opacity: 0;
+  width: 4px;
+  background: red;
+  transform: rotate(20deg);
+  animation-name: line;
+  animation-duration: 2s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes line {
+  from {
+    height: 0%;
+    opacity: 0;
+  }
+
+  to {
+    height: 100%;
+    opacity: 1;
+  }
+}
+
+.logo-name {
+  font-family: 'Cinzel', Courier, monospace;
+}
+
+.block-swiper {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
+
 .slecet-filter {
-  margin-top: 20px;
-  margin: 0, auto;
+  margin: 0 auto;
   min-width: 30%;
   max-width: 50%;
   font-size: 1rem;
@@ -78,10 +180,11 @@ h2 {
 }
 
 @keyframes aos {
-  from{
+  from {
     transform: translateX(-100%);
   }
-  to{
+
+  to {
     transform: translateX(0);
   }
 }

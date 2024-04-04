@@ -11,13 +11,12 @@ export const useAuthStore = defineStore('auth', () => {
         refreshToken: '',
         expireIn: '',
     })
-    console.log(userInfo.value)
     const isAuthenticated = ref(false)
     const error = ref('')
     const loader = ref(false)
     const auth = async (payload, type) => {
-        const stringUrl = type ==='signUp'? 'signUp' : 'signInWithPassword';
-        loader.value=true
+        const stringUrl = type === 'signUp' ? 'signUp' : 'signInWithPassword';
+        loader.value = true
         try {
             let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:${stringUrl}?key=${apiKey}`, {
                 ...payload,
@@ -37,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
             console.log(err.response.data.error.message)
             switch (err.response.data.error.message) {
                 case 'EMAIL_EXISTS':
-                    error.value = 'Email  exists';
+                    error.value = 'Email уже зарегистрирован';
                     break;
                 case 'OPERATION_NOT_ALLOWED':
                     error.value = 'Operation not allowed';
@@ -54,16 +53,16 @@ export const useAuthStore = defineStore('auth', () => {
                 case 'INVALID_LOGIN_CREDENTIALS':
                     error.value = 'Неверные учетные данные для входа';
                     break;
-                    default:
+                default:
                     error.value = 'Error'
                     break;
-                }
-                loader.value=false
-                throw error.value
             }
+            loader.value = false
+            throw error.value
+        }
     }
     console.log(userInfo.value)
-    return { auth, userInfo, error,isAuthenticated }
-    
+    return { auth, userInfo, error, isAuthenticated }
+
 })
 
