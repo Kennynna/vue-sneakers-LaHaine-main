@@ -38,12 +38,18 @@ const signUp = async () => {
   }
   await authStore.auth({ email: email.value, password: password.value }, 'signUp')
   isRegister.value = true
+  email.value = ''
+  password.value = ''
+  passwordChek.value = ''
   setTimeout(() => {
     isRegister.value = false
   }, 2000)
 }
 const signIn = async () => {
   await authStore.auth({ email: email.value, password: password.value }, 'signInWithPassword')
+  email.value = ''
+  password.value = ''
+  passwordChek.value = ''
   setTimeout(() => {
     router.push('/catalog')
   }, 2000)
@@ -61,7 +67,6 @@ const signIn = async () => {
         <div class="shape"></div>
       </div>
       <form v-if="!isRegister" class="auth flex flex-col justify-between " action="auth" @submit.prevent="signUp">
-        <h1>{{ email.toLocaleLowerCase() }}</h1>
         <Message v-if="authStore.error" severity="error" :life="2000"> {{ authStore.error }} </Message>
         <div class="auth__block flex justify-between">
           <p @click="showLog" :class="{ active: !useRegister }" class="auth__text-reg shadow-md ">Вход</p>
