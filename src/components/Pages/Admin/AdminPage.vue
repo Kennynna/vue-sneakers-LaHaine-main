@@ -4,7 +4,7 @@
     <div class="nav list-none flex justify-between p- subpixel-antialiased font-bold">
       <li>
         <router-link to="/admin/new-orders">Новые заказы <span class="red text-red-600 font-black">
-            +1</span></router-link>
+            +1 надо доделать</span></router-link>
       </li>
       <li>
         <router-link to="/admin/add-position">Добавить позицию</router-link>
@@ -45,10 +45,10 @@ h1 {
   font-weight: bold;
 }
 
-li{
+li {
   padding: 5px 10px;
   border-radius: 10px;
   background-color: black;
-  color:white
+  color: white
 }
 </style>

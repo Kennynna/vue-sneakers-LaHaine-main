@@ -18,14 +18,15 @@ onMounted(loadData);
 //Фильтр
 const sortOrder = ref('');
 const search = ref('');
-// Используем computed для реактивного отслеживания изменений в items и search
 const filteredItems = computed(() => {
-  // Фильтрация items по запросу поиска
   let items = store.state.items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
+  if (changeModel.value) {
+    items = items.filter(item => item.title.toLowerCase().includes(changeModel.value.toLowerCase()));
+  }
   if (sortOrder.value) {
     items = items.sort((a, b) => {
-      const priceA = Number(a.price);
-      const priceB = Number(b.price);
+      const priceA = a.price;
+      const priceB = b.price;
 
       if (sortOrder.value === 'asc') {
         // Сортировка по возрастанию
@@ -41,6 +42,10 @@ const filteredItems = computed(() => {
 });
 const cleanSearch = () => {
   search.value = ''
+}
+const changeModel = ref('')
+const modelChangeSort = (e) => {
+  changeModel.value = e.target.value
 }
 
 </script>
@@ -105,6 +110,11 @@ const cleanSearch = () => {
       <option value="desc">по убыванию</option>
     </select>
   </div>
+  <label>
+    <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
+    <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
+    <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
+  </label>
   <div class="container__catalog">
     <Leftcontent></Leftcontent>
     <div class="item__catalog">
