@@ -10,7 +10,7 @@
         <p class="sizeItem">Размеры:</p>
         <p class="sizeItem"> US
           <span v-for="(size, index) in catalogItem.size" :key="index" @click="selectSize(size)"
-            :style="{ color: selectedSize === size  ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
+            :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
             {{ size }}
           </span>
         </p>
@@ -57,10 +57,10 @@ export default {
         alert('Произошла ошибка при добавлении товара в корзину.');
       }
     };
-    onMounted( () => {
+    onMounted(() => {
       if (props.catalogItem.size) {
         selectedSize.value = props.catalogItem.size[0];
-      }else{
+      } else {
         console.log('Что то не так')
       }
     });
@@ -199,7 +199,7 @@ img {
 }
 
 .title {
- height: 60px;
+  height: 60px;
   max-width: 100%;
   padding: 0 10px;
 }

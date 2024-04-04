@@ -15,14 +15,30 @@ const loadData = async () => {
 // Вызовите асинхронную функцию внутри onMounted
 onMounted(loadData);
 
-
+//Фильтр
+const sortOrder = ref('');
 const search = ref('');
 // Используем computed для реактивного отслеживания изменений в items и search
 const filteredItems = computed(() => {
   // Фильтрация items по запросу поиска
-  return store.state.items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
+  let items = store.state.items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
+  if (sortOrder.value) {
+    items = items.sort((a, b) => {
+      const priceA = Number(a.price);
+      const priceB = Number(b.price);
+
+      if (sortOrder.value === 'asc') {
+        // Сортировка по возрастанию
+        return priceA - priceB;
+      } else if (sortOrder.value === 'desc') {
+        // Сортировка по убыванию
+        return priceB - priceA;
+      }
+    });
+  }
+
+  return items;
 });
-//сброс фильтра
 const cleanSearch = () => {
   search.value = ''
 }
@@ -84,9 +100,9 @@ const cleanSearch = () => {
           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </div>
-    <select name="Сортировка">
-      <option value=""> по врзрастанию</option>
-      <option value=""> по убыванию</option>
+    <select name="Сортировка" v-model="sortOrder" @change="handleSortChange($event.target.value)">
+      <option value="asc">по возрастанию</option>
+      <option value="desc">по убыванию</option>
     </select>
   </div>
   <div class="container__catalog">
@@ -156,7 +172,7 @@ input {
   display: flex;
   align-items: stretch;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: 30px;
   flex-grow: 1;
   flex-shrink: 100;
   justify-content: space-between;
