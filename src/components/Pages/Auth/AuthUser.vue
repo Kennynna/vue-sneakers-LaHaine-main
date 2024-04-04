@@ -42,15 +42,18 @@ const signUp = async () => {
   password.value = ''
   passwordChek.value = ''
   setTimeout(() => {
+    router.push('/catalog')
     isRegister.value = false
   }, 2000)
 }
 const signIn = async () => {
   await authStore.auth({ email: email.value, password: password.value }, 'signInWithPassword')
+  isRegister.value = true
   email.value = ''
   password.value = ''
   passwordChek.value = ''
   setTimeout(() => {
+    isRegister.value = false
     router.push('/catalog')
   }, 2000)
 }
@@ -78,14 +81,14 @@ const signIn = async () => {
           <input type="e-mail" v-model.trim="email" placeholder="Введите ваш email" />
           <input type="password" v-model="password" placeholder="Введите пароль" />
           <input v-if="useRegister" type="password" v-model="passwordChek" placeholder="Подтвердите  пароль" />
-          <p v-if="warningPassword && useRegister" class="text-center red">Пароли не совпадают</p>
+          <p v-if="warningPassword && useRegister" class="text-center" style="color: red;">Пароли не совпадают</p>
           <button v-if="useRegister" class="reg__btn" @click="signUp" label="Sign up">Зарегистрироваться</button>
           <button v-if="!useRegister" class="auth__btn" @click="signIn" label="Sign in">Войти</button>
           <p v-if="!useRegister" class="text-center font-medium">Не помню пароль</p>
         </div>
       </form>
       <div v-if="isRegister" class="loading font-bold from-slate-600 text-2xl  drop-shadow-md ">
-        <p class="text-neutral-800">Вы успешно зарегистрировались </p>
+        <p class="text-neutral-800">Подождите немного </p>
         <ProgressSpinner aria-label="Loading" style="height: 30px; width: 30px;" strokeWidth="7" />
       </div>
     </body>
