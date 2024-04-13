@@ -39,7 +39,7 @@ import PresentInfo from '@/components/Pages/Home/PresentInfo.vue'
       <p class="logo-desc logo-name font-bold text-6xl mb-20 mt-10 tracking-wide"> The World Is <span class="par"><span
             class="Y">Y</span></span>our</p>
     </div>
-    <PresentInfo />
+    <!-- <PresentInfo /> -->
   </div>
 
 </template>

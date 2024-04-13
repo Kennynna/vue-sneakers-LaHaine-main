@@ -19,7 +19,6 @@
     </div>
     <div class="item__btns">
       <button @click="AddToBasket">В корзину</button>
-
       <button @click="viewItem">Посмотреть товар</button>
     </div>
   </div>

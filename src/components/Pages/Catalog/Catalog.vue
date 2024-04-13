@@ -45,8 +45,13 @@ const cleanSearch = () => {
 }
 const changeModel = ref('')
 const modelChangeSort = (e) => {
-  changeModel.value = e.target.value
-}
+  if (e.target.checked) {
+    changeModel.value = e.target.value;
+  } else {
+    changeModel.value = '';
+  }
+};
+
 
 </script>
 
@@ -110,11 +115,11 @@ const modelChangeSort = (e) => {
       <option value="desc">по убыванию</option>
     </select>
   </div>
-  <label>
-    <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
-    <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
-    <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
-  </label>
+
+  <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
+  <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
+  <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
+
   <div class="container__catalog">
     <Leftcontent></Leftcontent>
     <div class="item__catalog">
