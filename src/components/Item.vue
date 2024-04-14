@@ -4,7 +4,8 @@ export default {
     title: String,
     price: Number,
     sizes: Array,
-    imgUrls: Array // Добавлен новый пропс для массива URL изображений
+    imgUrls: Array, // Добавлен новый пропс для массива URL изображений
+    buyCount: Number
   },
   data() {
     return {
@@ -41,7 +42,7 @@ export default {
     }
     
   }
-  
+
 }
 </script>
 
@@ -104,8 +105,8 @@ import Buttonn from './button.vue'
           sizeItem }}</span>
       </div>
     </div>
-    <Buttonn/>
     <p class="price">{{ price }} руб</p>
+    <p>Количество покупок: {{ buyCount }}</p>
   </div>
 </template>
 

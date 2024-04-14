@@ -1,37 +1,34 @@
 <script setup>
+import { computed, onMounted } from 'vue';
 import Item from '../../Item.vue'
 import MainSwiper from '../../MainSwiper.vue';
 import PresentInfo from '@/components/Pages/Home/PresentInfo.vue'
+import { useStore } from 'vuex';
+
+onMounted(() =>{
+  store.dispatch('fetchItems');
+})
+const store = useStore()
+const items = computed(()=>store.state.items)
+const sortedItems =  items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0, 3)
+
 </script>
 
 
 
 <template>
-
   <div class="maincontentbody">
     <h2 class="newItems">Новинки этого месяца</h2>
     <div class="block-swiper">
       <MainSwiper />
     </div>
     <div class="mainContent">
-      <h2>TOP 3 OF WEEK</h2>
+      <h2>TOP 3 orders</h2>
     </div>
     <div class="itemCart__content">
-      <Item :title="'Nike Air Force 1 Low ‘07 “Color Of The Month”'" :price="17400" :sizes="[8, 9, 10]" :imgUrls="[
-        'https://sun9-32.userapi.com/DcLECQqJbyRbWzJrjkU9WZRLXsCBU3-v8R2zZA/qwPYb6Yv9Mg.jpg',
-        'https://sun9-52.userapi.com/sJfRn5VYD3PmNHCvEOOD6WrfMO_BQ9F4ng1BJQ/--EOHsbGWWM.jpg',
-        'https://sun9-73.userapi.com/7676EuNiDmw_3rDw_cvHWG1aEgEuad3KIrZisg/sCyOopbMOn4.jpg'
-      ]" />
-      <Item :title="'New Balance 2002R “Castlerock”'" :price="17990" :sizes="[9, 9.5, 10, 11]" :imgUrls="[
-        'https://sun9-77.userapi.com/-FrvyB8Ww09pCXqKnzGIkWeKFN1-Je98zPKU4Q/HkfEN9vlFlM.jpg',
-        'https://sun9-40.userapi.com/p8ysZW8agh6RipUkMqgr6WQbqiM4Pi4cMLj1-Q/XqIViW3MnZI.jpg',
-        'https://sun9-53.userapi.com/aq6AT5ieJ1RLQrjl4BPNYwIrpecM8u71n85d1Q/MpU5pw6UN78.jpg'
-      ]" />
-      <Item :title="'Air Jordan 1 Low “White Toe”'" :price="16990" :sizes="[11.5]" :imgUrls="[
-        'https://sun9-78.userapi.com/Y0AYoej6sde6w5igRnxhSygYwiYIpOgDxhLtvQ/dKqcl5t-Uvg.jpg',
-        'https://sun9-78.userapi.com/E-WlTlZu5qNh8KhozCsPlWkkWfRVQONwSEi0iQ/zV9YtlliBFE.jpg',
-        'https://sun9-74.userapi.com/ZHCGNedQnQQ7Mvm1TBO8DWPPtkSaQaD1qm0vzg/zqGpHblnBmA.jpg'
-      ]" />
+      <Item v-for="(item, index) in sortedItems" :key="index" :title="item.title" :price="item.price" :sizes="item.size"
+        :imgUrls="item.imgUrl" :buyCount="item.buyCount">
+      </Item>
     </div>
     <div class="logo-text-block">
       <h2 class="logo-text logo-name font-bold text-9xl mt-40 tracking-wide"> La Haine</h2>

@@ -1,5 +1,4 @@
 <script>
-import { onUnmounted } from 'vue';
 export default {
   props: {
     id: Number,
@@ -7,26 +6,22 @@ export default {
     price: Number,
     size: Number,
     imgUrl: Array,
-    remove: Function // Добавьте пропс для метода удаления
+    remove: Function //пропс для метода удаления
   },
   methods: {
     handleRemove() {
-      this.remove(this.id); // Вызывайте метод удаления, переданный через пропс
+      this.remove(this.id); //метод удаления, переданный через пропс
     }
   }
 
 }
-onUnmounted(() => {
-  window.removeEventListener('click', this.handleRemove)
-  console.log('Я удалил обработчик')
-})
 </script>
 
 
 <template>
   <div class="basketItem">
     <div class="basketItem__img">
-      <img :src="imgUrl" alt="#" />
+      <img :src="imgUrl[0]" alt="#" />
     </div>
     <div class="basketItem__text">
       <p>Название модели: <span>{{ title }}</span></p>

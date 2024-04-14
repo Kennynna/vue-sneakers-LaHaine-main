@@ -8,7 +8,7 @@
         <p class="title">{{ catalogItem.title }}</p>
         <p class="price">{{ catalogItem.price }} руб</p>
         <p class="sizeItem">Размеры:</p>
-        <p class="sizeItem"> US
+        <p class="sizeItem"> <span v-if="catalogItem.category==='sneakers'">US</span>
           <span v-for="(size, index) in catalogItem.size" :key="index" @click="selectSize(size)"
             :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
             {{ size }}
@@ -127,26 +127,28 @@ span:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.149);
+
 }
 
 button:hover {
-  background-color: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-  transition: 0.3s;
+  background-color: rgb(65, 63, 63);
+  color: white;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.685) inset;
 
 }
 
 button {
   margin: 0;
   background-color: rgba(192, 191, 191, 0.876);
-  border-radius: 5px;
-  border: none;
   cursor: pointer;
   font-size: 13px;
-  color: inherit;
-  padding: 5px 5px;
-  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 10px;
+  font-weight: bold;
   text-transform: uppercase;
+  color: rgb(35, 37, 37);
+  transition: 0.3s;
 }
 
 p {
@@ -183,7 +185,7 @@ p {
   justify-content: center;
   margin: 0;
   gap: 1px;
-  max-width: 200px;
+  max-width: 250px;
   max-height: 500px;
   flex-direction: column;
   flex: 1;

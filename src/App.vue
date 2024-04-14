@@ -6,8 +6,6 @@ import { useAuthStore } from './auth'; // Путь к вашему файлу au
 const authStore = useAuthStore();
 const userInfo = computed(() => {
   authStore.userInfo.value
-  console.log('компонент изменился')
-  console.log(authStore.userInfo.email)
   return authStore.userInfo.email;
 });
 
@@ -77,10 +75,12 @@ body {
 .mobnav {
   display: none;
   width: 25px;
-  height: 20px;
+  height: 25px;
   position: fixed;
   cursor: pointer;
   z-index: 101;
+  margin: 0;
+  padding: 0;
 }
 
 .mobnav .spannav1::after {
@@ -119,13 +119,13 @@ body {
   .mob_header {
     margin: 0;
     display: flex;
-    position: absolute;
-    top: -30px;
+    position: fixed;
+    top: 0;
   }
 
   .mobnav {
     display: block;
-    top: 35px;
+    top: 25px;
     right:  30px;
   }
 

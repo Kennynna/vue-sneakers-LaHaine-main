@@ -1,7 +1,8 @@
 <script setup>
-import { computed, onMounted} from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import 'primeicons/primeicons.css'
+import { ref } from 'vue'
 const store = useStore();
 onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента
@@ -11,10 +12,15 @@ onMounted(() => {
 const cartItemCount = computed(() => store.state.cartItemCount);
 
 const props = defineProps({
- email: String,
+  email: String,
+
+
 });
 
-
+const activeLink = ref('');
+const selectLink = (link) => {
+  activeLink.value = link;
+};
 </script>
 <template>
   <header>
@@ -26,8 +32,8 @@ const props = defineProps({
         <router-link to="/">Главная</router-link>
         <router-link to="/about">О нас</router-link>
         <router-link to="/catalog">Каталог</router-link>
-        <router-link to="/">Контакты</router-link>
-        <router-link to="/">Отзывы</router-link>
+        <router-link to="/Contacts">Контакты</router-link>
+        <router-link to="/Otziv">Отзывы</router-link>
 
       </div>
       <div class="basket">
@@ -57,7 +63,7 @@ const props = defineProps({
           </svg></router-link>
       </div>
       <div class="user flex align-items-center gap-5">
-        <p>{{ props.email === ''? 'User': props.email}}</p>
+        <p>{{ props.email === '' ? 'User' : props.email }}</p>
         <router-link to="/auth"><i class="pi pi-user" style="font-size: 1.5rem"></i></router-link>
       </div>
       <div class="header__items-profile">
@@ -84,17 +90,21 @@ const props = defineProps({
 }
 
 .basket__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   position: absolute;
-  z-index: 11;
+  z-index: 1001;
   font-size: 13px;
   background-color: black;
   color: whitesmoke;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   text-align: center;
+  margin: 0, auto;
   right: 0;
-  top: 0;
+  top: -5px;
 }
 
 .basket {
@@ -114,6 +124,7 @@ const props = defineProps({
   font-size: 18px;
   border-radius: 20px;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+  z-index: 100;
 
 }
 
@@ -128,19 +139,24 @@ const props = defineProps({
 }
 
 a {
-  color: rgb(68, 60, 60);
-  transition: 0.2s;
+  color: rgb(37, 37, 37);
+  font-weight: bolder;
 }
 
 a:hover {
   font-weight: bolder;
   color: rgb(6, 6, 6);
+  box-shadow: 0px -8px 0px -5px rgba(0, 0, 0, 0.6) inset;
+  transition: 0.3s;
 }
 
 img {
   width: 100px;
   height: 100px;
   border-radius: 10px;
+}
+.router-link-active {
+  box-shadow: 0px -8px 0px -5px rgba(0, 0, 0, 0.6) inset;
 }
 
 
@@ -157,6 +173,7 @@ img {
     gap: 20px;
     width: 100%;
     top: 0;
+    border-radius: 0px
   }
 
   img {
@@ -168,6 +185,8 @@ img {
 
 
 }
+
+
 
 .header__items-profile {
   display: none;

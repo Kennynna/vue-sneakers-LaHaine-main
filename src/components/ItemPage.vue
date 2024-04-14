@@ -15,7 +15,7 @@
                     color: selectedSize === size ? 'white' : 'grey',
                     backgroundColor: selectedSize === size ? 'black' : 'white',
                 }" v-for="(size, index) in itemCard.size" :key="index">
-                    {{ size }}
+                    {{ size }} 
                 </span>
             </p>
 
@@ -115,7 +115,6 @@ const selectSize = (size) => {
 
 .itemPage__img-mainimg {
     grid-column: span 3;
-    border: 1px solid black;
     width: 100%;
     height: 300px;
     /* Задаем фиксированную высоту */
@@ -124,7 +123,6 @@ const selectSize = (size) => {
 }
 
 .itemPage__img-lastimg {
-    border: 1px solid black;
     width: 100%;
     height: 100px;
     /* Задаем фиксированную высоту для остальных изображений */

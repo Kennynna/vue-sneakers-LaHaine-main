@@ -7,52 +7,29 @@
       modifier: 1,
       slideShadows: true,
     }" :pagination="true" :modules="modules" class="mySwiper">
-      <swiper-slide>
-        <p class="item__title"> Adidas Forum 84 High “White Magic Beige”</p>
-        <img src="https://sun9-61.userapi.com/nyfB4NCTkmUhJvqCrc41Tdr74CqHzh7Z6XYupw/1So8bEoetpc.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">New Balance 2002R “Sweet Caramel”</p><img
-          src="https://sun9-34.userapi.com/JXB4dUuzjSk_hkhETIkL1HLum3AJ1isNrfg-JA/zLFA9TJys5c.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">New Balance 2002R “White Natural Indigo”</p><img
-          src="https://sun9-8.userapi.com/260wpA9PC7TI0DQXT8FT-3U1QP2SonpKpPI0qQ/T1evjXuvfJ0.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">Adidas Niteball “Crystal White”</p><img
-          src="https://sun9-68.userapi.com/6bbu2-knuT0wys1UrAF1Ov8Qgq8zb_8wRdGjxw/RHesizjQuNA.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">Adidas Niteball</p><img
-          src="https://sun9-79.userapi.com/p3OfxQKZIN-g4PJ8Xh4_8FUQ0D6LJJfCFceeJQ/IKYp6532Szs.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">Adidas Athen City Series x Size</p><img
-          src="https://sun9-45.userapi.com/qMGbQlFIukSg_OhlUJWzILnrHjUgaHeBOjXsug/qBWWhnoce1o.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">Nike Air Max 95 “Grey Fog””</p><img
-          src="https://sun9-43.userapi.com/K5pk5rw_cKZptPR0JB7BwOnRj6V9P5WrG5YmcQ/qKAwNoEY0ys.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title">New Balance XC-72 “Beige Gum”</p><img
-          src="https://sun9-25.userapi.com/KByJ2drr8b-hC45iuGTDwhDBxAbK2QvxRz0odA/A8A7iYrlz_4.jpg" />
-      </swiper-slide><swiper-slide>
-        <p class="item__title"> Adidas Forum 84 High “White Magic Beige”</p><img
-          src="https://sun9-80.userapi.com/9PFX5AvvTWrYH_u4IIbu_b0d8rT1_GzFNfm49A/rhO3pzKaejc.jpg" />
+      <swiper-slide v-for="(item, index) in items" :key="index">
+        <p class="item__title">{{ item.title }}</p>
+        <img :src="item.imgUrl[0]" />
       </swiper-slide>
     </swiper>
   </div>
+
 </template>
 
 
 <script>
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
 // Import Swiper styles
 import 'swiper/css';
-
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-
-
-// import required modules
 import { EffectCoverflow, Pagination } from 'swiper/modules';
+
+
+import  axios  from 'axios';
+import { onMounted } from 'vue';
+import {ref} from 'vue'
 
 export default {
   components: {
@@ -60,7 +37,22 @@ export default {
     SwiperSlide,
   },
   setup() {
+  const items = ref([])
+  const getItems = async () =>{
+    try{
+    const response = await axios.get('https://52229c9522e6c31a.mokky.dev/newMonthItems')
+    items.value= response.data;
+    }
+      catch{
+        alert('Не удалось отправить запрос')
+      }
+
+  }
+  onMounted(getItems)
+
+
     return {
+      items,
       modules: [EffectCoverflow, Pagination],
     };
   },
