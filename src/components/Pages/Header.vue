@@ -29,8 +29,8 @@ const props = defineProps({
         <router-link to="/">Главная</router-link>
         <router-link to="/about">О нас</router-link>
         <router-link to="/catalog">Каталог</router-link>
-        <router-link to="/Contacts">Контакты</router-link>
-        <router-link to="/Otziv">Отзывы</router-link>
+        <router-link to="/contacts">Контакты</router-link>
+        <router-link to="/feedback">Отзывы</router-link>
 
       </div>
       <div class="basket">
@@ -65,10 +65,6 @@ const props = defineProps({
       <div class="user flex align-items-center gap-5">
         <p>{{ props.email === '' ? 'User' : props.email }}</p>
         <router-link to="/auth"><i class="pi pi-user" style="font-size: 1.5rem"></i></router-link>
-      </div>
-      <div class="header__items-profile">
-        <a href="">Войти</a>
-        <a href="">Регистрация</a>
       </div>
 
     </div>
@@ -154,7 +150,7 @@ const props = defineProps({
   font-size: 18px;
   border-radius: 20px;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
-  z-index: 100;
+  z-index: 99;
 
 }
 

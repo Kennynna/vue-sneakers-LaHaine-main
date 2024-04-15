@@ -14,6 +14,8 @@ import NewOrders from './components/Pages/Admin/NewOrders.vue';
 import AddPosition from './components/Pages/Admin/AddPosition.vue';
 import ViewAllProducts from './components/Pages/Admin/ViewAllProducts.vue'
 import ItemPage from './components/ItemPage.vue';
+import Contacts from './components/Contacts.vue';
+import Feedback from './components/Feedback.vue';
 import './index.css'
 import AuthUser from './components/Pages/Auth/AuthUser.vue';
 import { createPinia } from 'pinia'
@@ -35,6 +37,8 @@ const router = createRouter({
         { path: '/about', name: 'About', component: About },
         { path: '/catalog', name: 'Catalog', component: Catalog },
         { path: '/basket', name: 'Basket', component: Basket },
+        { path: '/contacts', name: 'Contacts', component: Contacts },
+        { path: '/feedback', name: 'Feedback', component: Feedback },
         {
             path: '/admin',
             component: AdminPage,

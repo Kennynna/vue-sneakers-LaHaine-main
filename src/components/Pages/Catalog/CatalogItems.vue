@@ -72,6 +72,7 @@ const viewItem = async () => {
   await store.dispatch('updateRandomItems');
   // Перенаправление на страницу товара
   await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
+  window.scrollTo(0, 0);
 };
 
 onUnmounted(() => {
@@ -82,7 +83,6 @@ return {
   AddToBasket,
   selectedSize,
   selectSize,
-  AddToBasket,
   viewItem
 };
   }

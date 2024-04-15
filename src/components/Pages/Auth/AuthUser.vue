@@ -355,4 +355,13 @@ button {
 .social i {
   margin-right: 4px;
 }
+
+@media (max-width: 790px){
+  .shape:first-child{
+    animation-name: none;
+  }
+    .shape:last-child{
+      animation-name: none;
+    }
+}
 </style>

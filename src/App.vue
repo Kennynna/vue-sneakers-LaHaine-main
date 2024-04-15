@@ -38,11 +38,11 @@ emailUser.value = userInfo
     <div class="mob_header text-slate-200" v-show="isMobileMenuVisible">
       <div class="header__items-profile">
       </div>
-      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Главная</router-link>
-      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/about" @click="toggleMobileMenu">О нас</router-link>
-      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
-      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Контакты</router-link>
-      <router-link class="header__link-item  shadow-lg shadow-blue-500/50" to="/" @click="toggleMobileMenu">Отзывы</router-link>
+      <router-link class="header__link-item  " to="/" @click="toggleMobileMenu">Главная</router-link>
+      <router-link class="header__link-item  " to="/about" @click="toggleMobileMenu">О нас</router-link>
+      <router-link class="header__link-item  " to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
+      <router-link class="header__link-item  " to="/contacts" @click="toggleMobileMenu">Контакты</router-link>
+      <router-link class="header__link-item  " to="/feedback" @click="toggleMobileMenu">Отзывы</router-link>
     </div>
     <HeaderVue :email="emailUser.value" />
     <router-view></router-view>
@@ -182,9 +182,10 @@ body {
   text-align: center;
   height: 50px;
   font-size: 23px ;
-  background-color: black;
-  border-radius: 10px;
-  
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border: 5px solid black;
+  font-weight: 300;
 }
 }
 </style>

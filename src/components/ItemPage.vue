@@ -81,8 +81,12 @@ const AddToBasket = async () => {
 
 const selectedSize = ref(0);
 const selectImage = (imageUrl) => {
-    // Update the selected image URL
+    
     selectedImageURL.value = imageUrl;
+};
+
+const selectSize = (size) => {
+    selectedSize.value = size;
 };
 </script>
 
