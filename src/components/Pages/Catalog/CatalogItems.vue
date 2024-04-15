@@ -8,7 +8,7 @@
         <p class="title">{{ catalogItem.title }}</p>
         <p class="price">{{ catalogItem.price }} руб</p>
         <p class="sizeItem">Размеры:</p>
-        <p class="sizeItem"> <span v-if="catalogItem.category==='sneakers'">US</span>
+        <p class="sizeItem"> <span v-if="catalogItem.category === 'sneakers'">US</span>
           <span v-for="(size, index) in catalogItem.size" :key="index" @click="selectSize(size)"
             :style="{ color: selectedSize === size ? 'black' : 'grey', fontWeight: selectedSize === size ? '900' : '400' }">
             {{ size }}
@@ -43,57 +43,53 @@ export default {
       selectedSize.value = size;
     };
     const AddToBasket = async () => {
-      try {
-        await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
-          id: props.catalogItem.id,
-          title: props.catalogItem.title,
-          price: props.catalogItem.price,
-          size: selectedSize.value,
-          imgUrl: props.catalogItem.imgUrl
-        });
-        await store.dispatch('fetchCartItems');
-      } catch (error) {
-        alert('Произошла ошибка при добавлении товара в корзину.');
-      }
-    };
-    onMounted(() => {
-      if (props.catalogItem.size) {
-        selectedSize.value = props.catalogItem.size[0];
-      } else {
-        console.log('Что то не так')
-      }
-    });
-
-    const viewItem = async () => {
-      // Добавление товара в ItemCard
-      await store.dispatch('addItemCard', {
+      const item = {
         id: props.catalogItem.id,
         title: props.catalogItem.title,
         price: props.catalogItem.price,
-        size: props.catalogItem.size,
+        size: selectedSize.value,
         imgUrl: props.catalogItem.imgUrl
-      });
-      await store.dispatch('updateRandomItems');
-      // Перенаправление на страницу товара
-      await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
+      };
+      await store.dispatch('addToBasket', item);
     };
+onMounted(() => {
+  if (props.catalogItem.size) {
+    selectedSize.value = props.catalogItem.size[0];
+  } else {
+    console.log('Что то не так')
+  }
+});
 
-    onUnmounted(() => {
-      window.removeEventListener('click', viewItem)
-      window.removeEventListener('click', AddToBasket)
-    });
-    return {
-      selectedSize,
-      selectSize,
-      AddToBasket,
-      viewItem
-    };
+const viewItem = async () => {
+  // Добавление товара в ItemCard
+  await store.dispatch('addItemCard', {
+    id: props.catalogItem.id,
+    title: props.catalogItem.title,
+    price: props.catalogItem.price,
+    size: props.catalogItem.size,
+    imgUrl: props.catalogItem.imgUrl
+  });
+  await store.dispatch('updateRandomItems');
+  // Перенаправление на страницу товара
+  await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
+};
+
+onUnmounted(() => {
+  window.removeEventListener('click', viewItem)
+  window.removeEventListener('click', AddToBasket)
+});
+return {
+  AddToBasket,
+  selectedSize,
+  selectSize,
+  AddToBasket,
+  viewItem
+};
   }
 };
 </script>
 
 <style scoped>
-
 .sizeItem {
   text-align: start;
   padding: 0 10px;
@@ -211,5 +207,4 @@ img {
   font-size: clamp(0.813rem, 0.699rem + 0.57vw, 1.125rem);
   font-weight: 800;
 }
-
 </style>

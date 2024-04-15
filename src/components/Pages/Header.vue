@@ -34,7 +34,7 @@ const props = defineProps({
 
       </div>
       <div class="basket">
-        <div class="basket__notification">
+        <div v-if="store.state.isItemAdded" class="basket__notification">
           <p class="text-xs font-extrabold">товар добавлен в корзину</p>
         </div>
         <div class="basket__number">{{ cartItemCount }}</div>

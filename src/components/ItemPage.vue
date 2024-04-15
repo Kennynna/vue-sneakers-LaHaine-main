@@ -2,9 +2,10 @@
     <div class="itemPage" v-if="itemCard">
         <div class="itemPage__img">
             <div class="itemPage__img-grid">
-                <img :src="itemCard.imgUrl[0]" :alt="`Image`" class="itemPage__img-mainimg">
+                <img :src="selectedImageURL || itemCard.imgUrl[0]" alt="Image" class="itemPage__img-mainimg"
+                    @click="selectImage(itemCard.imgUrl[0])">
                 <img v-for="(imageUrl, index) in itemCard.imgUrl" :key="index" :src="imageUrl" :alt="`Image ${index}`"
-                    class="itemPage__img-lastimg">
+                    class="itemPage__img-lastimg" @click="selectImage(imageUrl)">
             </div>
         </div>
         <div class="itemPage__text">
@@ -41,44 +42,47 @@
 
 <script setup>
 import axios from 'axios';
-import { ref } from 'vue';
-import { computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router'; // Импортируем useRoute
+import { useRouter } from 'vue-router';
 import CatalogItems from './Pages/Catalog/CatalogItems.vue';
+
 const store = useStore();
 const itemCard = computed(() => store.state.ItemCard);
-const router = useRouter(); // Получаем текущий маршрут
+const router = useRouter();
 router.push({ name: 'ItemPage', params: { id: itemCard.value.id } });
+
+const selectedImageURL = ref(null); // Data property for selected image URL
+
+// Reset selectedImageURL when itemCard changes
+watch(itemCard, () => {
+    selectedImageURL.value = null;
+});
+
 onMounted(() => {
     store.dispatch('updateRandomItems');
     if (itemCard.value.size) {
         selectedSize.value = itemCard.value.size[0];
-    } else {
-        console.log('Что то не так')
     }
 });
-//Рандомные товары снизу
+
 const randomItems = computed(() => store.state.randomItems);
-//В корзину
+
 const AddToBasket = async () => {
-    try {
-        await axios.post('https://52229c9522e6c31a.mokky.dev/basket', {
-            id: itemCard.value.id,
-            title: itemCard.value.title,
-            price: itemCard.value.price,
-            imgUrl: itemCard.value.imgUrl,
-            size: selectedSize.value,
-        });
-        await store.dispatch('fetchCartItems');
-    } catch (error) {
-        alert('Произошла ошибка при добавлении товара в корзину.');
-    }
+    const item = {
+        id: itemCard.value.id,
+        title: itemCard.value.title,
+        price: itemCard.value.price,
+        imgUrl: itemCard.value.imgUrl,
+        size: selectedSize.value,
+    };
+    await store.dispatch('addToBasket', item);
 };
-//Выбор размера
+
 const selectedSize = ref(0);
-const selectSize = (size) => {
-    selectedSize.value = size;
+const selectImage = (imageUrl) => {
+    // Update the selected image URL
+    selectedImageURL.value = imageUrl;
 };
 </script>
 
@@ -211,5 +215,11 @@ const selectSize = (size) => {
     .itemPage__text {
         gap: 10px;
     }
+}
+img:hover{
+    border: 1px solid black;
+}
+.itemPage__img-mainimg{
+    pointer-events: none
 }
 </style>

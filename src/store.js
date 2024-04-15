@@ -9,6 +9,7 @@ export default createStore({
     cartItems: [],//получение товаров из корзины
     ItemCard: [],//для страницы товара
     randomItems: [], // для случайных товаров
+    isItemAdded: false,
   },
   mutations: {
     setCartItems(state, items) {
@@ -24,7 +25,9 @@ export default createStore({
     setRandomItems(state, randomItems) {
       state.randomItems = randomItems;
     },
-    
+    setItemAdded(state, value) {
+      state.isItemAdded = value;
+    },
 
   },
   actions: {
@@ -77,6 +80,21 @@ export default createStore({
       const indices = randomIndices(3, state.items.length);
       const randomItems = indices.map(index => state.items[index]);
       commit('setRandomItems', randomItems);
+    },
+    // Функция добавления товара в корзину на бэк
+    async addToBasket({ commit }, item) {
+      try {
+        await axios.post('https://52229c9522e6c31a.mokky.dev/basket', item);
+        // После успешного добавления товара в корзину, обновите список товаров в корзине
+        await this.dispatch('fetchCartItems');
+        commit('setItemAdded', true); // Установите флаг, что товар был добавлен
+        setTimeout(() => {
+          commit('setItemAdded', false); // Сбросьте флаг через некоторое время
+        }, 2000);
+      } catch (error) {
+        console.error('Ошибка при добавлении товара в корзину:', error);
+        commit('setItemAdded', false); // Сбросьте флаг в случае ошибки
+      }
     },
     
   }
