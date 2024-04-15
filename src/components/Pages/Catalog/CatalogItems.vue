@@ -18,77 +18,71 @@
       <div class="buttons__item"></div>
     </div>
     <div class="item__btns">
-      <button @click="AddToBasket">В корзину</button>
+      <button @click="addToBasket">В корзину</button>
       <button @click="viewItem">Посмотреть товар</button>
     </div>
   </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
 import { useStore } from 'vuex';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-export default {
-  props: {
-    catalogItem: Object,
-    id: String
-  },
-  setup(props) {
-    const store = useStore();
-    const selectedSize = ref(0);
-    const router = useRouter();
-    const selectSize = (size) => {
-      selectedSize.value = size;
-    };
-    const AddToBasket = async () => {
-      const item = {
-        id: props.catalogItem.id,
-        title: props.catalogItem.title,
-        price: props.catalogItem.price,
-        size: selectedSize.value,
-        imgUrl: props.catalogItem.imgUrl
-      };
-      await store.dispatch('addToBasket', item);
-    };
-onMounted(() => {
-  if (props.catalogItem.size) {
-    selectedSize.value = props.catalogItem.size[0];
-  } else {
-    console.log('Что то не так')
-  }
+const props = defineProps({
+  catalogItem: Object,
+  id: String,
 });
 
-const viewItem = async () => {
-  // Добавление товара в ItemCard
-  await store.dispatch('addItemCard', {
+const store = useStore();
+const selectedSize = ref(props.catalogItem.size ? props.catalogItem.size[0] : null); // Handle default size
+const router = useRouter();
+const selectSize = (size) => {
+  selectedSize.value = size;
+};
+//в корзину
+const addToBasket = async () => {
+  if (!selectedSize.value) {
+    console.error('Please select a size before adding to basket.');
+    return;
+  }
+
+  const item = {
     id: props.catalogItem.id,
     title: props.catalogItem.title,
     price: props.catalogItem.price,
-    size: props.catalogItem.size,
-    imgUrl: props.catalogItem.imgUrl
-  });
-  await store.dispatch('updateRandomItems');
-  // Перенаправление на страницу товара
-  await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
-  window.scrollTo(0, 0);
-};
+    size: selectedSize.value,
+    imgUrl: props.catalogItem.imgUrl,
+  };
 
-onUnmounted(() => {
-  window.removeEventListener('click', viewItem)
-  window.removeEventListener('click', AddToBasket)
-});
-return {
-  AddToBasket,
-  selectedSize,
-  selectSize,
-  viewItem
+  await store.dispatch('addToBasket', item);
 };
+// в itemPage
+const viewItem = async () => {
+  try {
+    await store.dispatch('addItemCard', {
+      id: props.catalogItem.id,
+      title: props.catalogItem.title,
+      price: props.catalogItem.price,
+      size: props.catalogItem.size,
+      imgUrl: props.catalogItem.imgUrl,
+    });
+    await store.dispatch('updateRandomItems');
+    await router.push({ name: 'ItemPage', params: { id: props.catalogItem.id } });
+    window.scrollTo(0, 0);
+  } catch (error) {
+    console.error('Error adding item to card or updating random items:', error);
   }
 };
-</script>
 
+onMounted(() => {
+  // Handle potential errors in catalogItem data
+  if (!props.catalogItem || !props.catalogItem.size) {
+    console.error('Invalid catalog item data. Please check data source.');
+  }
+});
+
+</script>
 <style scoped>
 .sizeItem {
   text-align: start;

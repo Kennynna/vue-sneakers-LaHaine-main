@@ -19,7 +19,7 @@
                     {{ size }}
                 </span>
             </p>
-            <p class="text-xs text-red-950 font-bold">Кликните на нужный размер и нажмите на "В КОРЗИНУ"</p>
+            <p class="text-xs text-red-950 font-bold">Выберите нужный размер и нажмите на "В КОРЗИНУ"</p>
             <p class="itemPage__text-desc text-xl">Описание: <span>
                     наименование и товарный знак сформированы в информационных целях на
                     основе данных из открытых источников: с официального интернет-магазина за рубежом. Условие по
@@ -46,10 +46,10 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import CatalogItems from './Pages/Catalog/CatalogItems.vue';
-
 const store = useStore();
 const itemCard = computed(() => store.state.ItemCard);
 const router = useRouter();
+console.log(itemCard.value.imgUrl)
 router.push({ name: 'ItemPage', params: { id: itemCard.value.id } });
 
 const selectedImageURL = ref(null); // Data property for selected image URL

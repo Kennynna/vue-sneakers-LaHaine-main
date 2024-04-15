@@ -96,7 +96,7 @@ export default createStore({
         commit('setItemAdded', false); // Сбросьте флаг в случае ошибки
       }
     },
-    
+
   }
 });
 

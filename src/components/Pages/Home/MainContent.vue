@@ -5,12 +5,13 @@ import MainSwiper from '../../MainSwiper.vue';
 import PresentInfo from '@/components/Pages/Home/PresentInfo.vue'
 import { useStore } from 'vuex';
 
-onMounted(() =>{
+onMounted(() => {
   store.dispatch('fetchItems');
 })
 const store = useStore()
-const items = computed(()=>store.state.items)
-const sortedItems =  items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0, 3)
+const items = computed(() => store.state.items)
+const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0, 3)
+console.log(sortedItems[0].id)
 
 </script>
 
@@ -27,7 +28,7 @@ const sortedItems =  items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0
     </div>
     <div class="itemCart__content">
       <Item v-for="(item, index) in sortedItems" :key="index" :title="item.title" :price="item.price" :sizes="item.size"
-        :imgUrls="item.imgUrl" :buyCount="item.buyCount">
+        :imgUrl="item.imgUrl" :buyCount="item.buyCount" :id="item.id">
       </Item>
     </div>
     <div class="logo-text-block">

@@ -1,49 +1,74 @@
-<script>
-export default {
-  props: {
-    title: String,
-    price: Number,
-    sizes: Array,
-    imgUrls: Array, // Добавлен новый пропс для массива URL изображений
-    buyCount: Number
-  },
-  data() {
-    return {
-      selectedSize: this.sizes[0],
-      currentImageIndex: 1, // Индекс текущего изображения
-      toggleImage: false,
-      favoriteSrc: '/public/sneakersCart/Icons/add-to-favorite.svg', // Путь к изображению по умолчанию
-      favoriteSrcSelected: '/public/sneakersCart/Icons/favourite.svg' //
-    }
-  },
-  methods: {
-    toggleSizes() {
-      this.$refs.sizelist.classList.toggle('active')
-      this.$refs.arrowUp.classList.toggle('active')
-    },
-    selectSize(selectedSize) {
-      this.selectedSize = selectedSize
-      this.$refs.sizelist.classList.remove('active')
-      this.$refs.arrowUp.classList.remove('active')
-    },
-    nextImage() {
-      if (this.currentImageIndex < this.imgUrls.length - 1) {
-        this.currentImageIndex++
-      }
-    },
-    prevImage() {
-      if (this.currentImageIndex > 0) {
-        this.currentImageIndex--
-      }
-    },
-    toggleFavorite() {
-      console.log(this.toggleImage)
-      this.toggleImage = !this.toggleImage // Переключаем значение toggleImage
-    }
-    
+<script setup>
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+const props = defineProps({
+  title: String,
+  price: Number,
+  sizes: Array,
+  imgUrl: Array,
+  buyCount: Number,
+  id: Number,
+});
+onMounted(() => {
+  console.log(props.id)
+})
+const store = useStore();
+const router = useRouter();
+const selectedSize = ref(props.sizes[0]);
+const currentImageIndex = ref(1); // Use 0 for initial index
+const toggleImage = ref(false)
+const viewItem = async () => {
+  console.log(props.id);
+  console.log(props.title);
+
+  try {
+    await store.dispatch('addItemCard', {
+      id: props.id,
+      title: props.title,
+      price: props.price,
+      size: props.sizes,
+      imgUrl: props.imgUrl
+    })
+    await router.push({ name: 'ItemPage', params: { id: props.id } });
+    window.scrollTo(0, 0);
+  } catch (error) {
+    alert(error)
   }
 
-}
+};
+
+const sizeList = ref(null);
+const arrowUp = ref(null);
+
+const toggleSizes = () => {
+  sizeList.value.classList.toggle('active');
+  arrowUp.value.classList.toggle('active');
+};
+
+const selectSize = (size) => {
+  selectedSize.value = size;
+  sizeList.value.classList.remove('active');
+  arrowUp.value.classList.remove('active');
+};
+const nextImage = () => {
+  if (currentImageIndex.value < props.imgUrl.length - 1) {
+    currentImageIndex.value++;
+  }
+};
+
+const prevImage = () => {
+  if (currentImageIndex.value > 0) {
+    currentImageIndex.value--;
+  }
+};
+
+const toggleFavorite = () => {
+  toggleImage.value = !toggleImage.value;
+};
+
+const favoriteSrc = ref('/public/sneakersCart/Icons/add-to-favorite.svg');
+const favoriteSrcSelected = ref('/public/sneakersCart/Icons/favourite.svg');
 </script>
 
 <template>
@@ -56,7 +81,7 @@ export default {
     </div>
     <div class="itemCart__mainImg">
       <div class="pagination">
-        <img class="MainImg" :src="imgUrls[currentImageIndex]" alt="mainImg" />
+        <img class="MainImg" :src="imgUrl[currentImageIndex]" alt="mainImg" />
         <!-- Используем текущее изображение из массива -->
         <svg key class="prevImage" v-if="currentImageIndex > 0" @click="prevImage" width="20px" height="20px"
           viewBox="-102.4 -102.4 1228.80 1228.80" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#aaaaaa"
@@ -68,7 +93,7 @@ export default {
             <path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000"></path>
           </g>
         </svg><!-- Кнопка для переключения на следующее изображение -->
-        <svg class="nextImage" v-if="currentImageIndex < imgUrls.length - 1" @click="nextImage" width="20px"
+        <svg class="nextImage" v-if="currentImageIndex < imgUrl.length - 1" @click="nextImage" width="20px"
           height="20px" viewBox="-102.4 -102.4 1228.80 1228.80" version="1.1" xmlns="http://www.w3.org/2000/svg"
           fill="#aaaaaa" stroke="#aaaaaa" stroke-width="102.4">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -86,7 +111,7 @@ export default {
     <div class="size">
       <span class="size__text">Размер:</span>
       <p class="selected-size">{{ selectedSize }} US</p>
-      <svg @click="toggleSizes" ref="arrowUp" class="arrowUp" width="15px" height="15px" viewBox="0  0  24  24"
+      <svg ref="arrowUp" @click="toggleSizes" class="arrowUp" width="15px" height="15px" viewBox="0  0  24  24"
         fill="black">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -96,24 +121,27 @@ export default {
             fill="#0F0F0F0F0F"></path>
         </g>
       </svg>
-      <div class="sizelist" ref="sizelist">
-        <span class="size__item" v-for="(sizeItem, index) in sizes" :key="index" @click="selectSize(sizeItem)">{{
-          sizeItem }}</span>
+      <div ref="sizeList" class=" sizelist">
+        <span class="size__item" v-for="(sizeItem, index) in sizes" :key="index" @click="selectSize(sizeItem)">
+          {{sizeItem }}</span>
       </div>
     </div>
     <p class="price">{{ price }} руб</p>
+    <button @click="viewItem">Посмотреть товар</button>
     <p>Количество покупок: {{ buyCount }}</p>
   </div>
 </template>
 
 <style scoped>
-.sizelist{
+.sizelist {
   z-index: 100;
 }
+
 .itemCart__btn:hover {
   background-color: black;
   color: white;
 }
+
 .itemCart__btn {
   padding: 5px 15px;
   transition: 0.3s;
