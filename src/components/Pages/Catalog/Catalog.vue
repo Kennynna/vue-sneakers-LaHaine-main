@@ -16,7 +16,7 @@ const loadData = async () => {
 onMounted(loadData);
 
 //Фильтр
-const sortOrder = ref('');
+const sortOrder = ref('asc');
 const search = ref('');
 const filteredItems = computed(() => {
   let items = store.state.items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
@@ -115,10 +115,11 @@ const modelChangeSort = (e) => {
       <option value="desc">по убыванию</option>
     </select>
   </div>
-
-  <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
-  <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
-  <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
+  <div class="inptuChek flex mt-5 gap-1">
+    <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
+    <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
+    <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
+  </div>
 
   <div class="container__catalog">
     <Leftcontent></Leftcontent>
@@ -204,8 +205,10 @@ input {
   }
 
   .leftmenu {
-    width: max-content;
     flex-direction: row;
+  }
+  .sort{
+    flex-direction: column;
   }
 }
 
@@ -213,11 +216,15 @@ input {
 @media (max-width:1060px) {
   .container__catalog {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .leftmenu {
-    width: max-content;
+    width: clamp(17.5rem, 14.773rem + 13.64vw, 25rem);
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .item__catalog {
@@ -226,4 +233,6 @@ input {
   }
 
 }
+
+  
 </style>

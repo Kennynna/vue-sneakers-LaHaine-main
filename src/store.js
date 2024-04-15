@@ -6,7 +6,7 @@ export default createStore({
   plugins: [createPersistedState()],
   state: {
     items: [],//каталог
-    cartItems: [],//корзины
+    cartItems: [],//получение товаров из корзины
     ItemCard: [],//для страницы товара
     randomItems: [], // для случайных товаров
   },
@@ -24,6 +24,7 @@ export default createStore({
     setRandomItems(state, randomItems) {
       state.randomItems = randomItems;
     },
+    
 
   },
   actions: {

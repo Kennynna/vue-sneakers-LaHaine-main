@@ -113,9 +113,13 @@ body {
 
 .content {
   position: relative;
+  padding: 0 20px;
 }
 
 @media (max-width: 790px) {
+  .content{
+    margin-top: 120px;
+  }
   .mob_header {
     margin: 0;
     display: flex;

@@ -46,10 +46,6 @@ export default {
 }
 </script>
 
-<script setup>
-import Buttonn from './button.vue'
-</script>
-
 <template>
   <div class="itemCart">
     <div class="favorite__list">
@@ -91,7 +87,7 @@ import Buttonn from './button.vue'
       <span class="size__text">Размер:</span>
       <p class="selected-size">{{ selectedSize }} US</p>
       <svg @click="toggleSizes" ref="arrowUp" class="arrowUp" width="15px" height="15px" viewBox="0  0  24  24"
-        fill="black" xmlns="http://www.w3.org/20000/svg">
+        fill="black">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">

@@ -17,7 +17,6 @@ const toggleVisibility = (item) => {
 
 <template>
   <div class="leftmenu">
-    <h4 class="sneakers forMan font-bold">Для Мужчин</h4>
     <ul class="sneakers_table">
       <p @click="toggleVisibility('sneakers')" class="sneakers_table-item">Кроссовки</p>
       <div class="sneakers">
@@ -46,21 +45,15 @@ const toggleVisibility = (item) => {
         </ul>
       </div>
     </ul>
-    <h4 class="sneakers forWoman font-bold">Для Женщин</h4>
-
-    <ul class="sneakers_table ">
-      <li class="sneakers_table-item">Кроссовки</li>
-      <li class="sneakers_table-item">Одежда</li>
-      <li class="sneakers_table-item">Аксессуары</li>
-    </ul>
   </div>
 </template>
 
 <style scoped>
-.active{
-  font-weight: 800  ;
+.active {
+  font-weight: 800;
   color: black;
 }
+
 .sneakers__li {
   cursor: pointer;
 }
@@ -100,9 +93,10 @@ ul {
   outline: none;
 }
 
-li{
+li {
   color: grey
 }
+
 .leftmenu {
   padding: 10px 10px;
   width: 15%;
@@ -124,8 +118,6 @@ li{
   padding: 0;
   text-align: center;
 }
-
-.sneakers {}
 
 .sneakers_table-item {
   border: 1px solid black;

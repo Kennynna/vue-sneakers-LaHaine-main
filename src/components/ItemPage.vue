@@ -15,15 +15,16 @@
                     color: selectedSize === size ? 'white' : 'grey',
                     backgroundColor: selectedSize === size ? 'black' : 'white',
                 }" v-for="(size, index) in itemCard.size" :key="index">
-                    {{ size }} 
+                    {{ size }}
                 </span>
             </p>
-
+            <p class="text-xs text-red-950 font-bold">Кликните на нужный размер и нажмите на "В КОРЗИНУ"</p>
             <p class="itemPage__text-desc text-xl">Описание: <span>
                     наименование и товарный знак сформированы в информационных целях на
                     основе данных из открытых источников: с официального интернет-магазина за рубежом. Условие по
                     вознаграждению агента см в п. 2.3.4. Агентского договора.
-                </span> </p>
+                </span>
+            </p>
             <button class="buy__btn" @click="AddToBasket"> В корзину </button>
         </div>
 
@@ -181,5 +182,34 @@ const selectSize = (size) => {
 .recomend {
     margin-top: 40px;
     border-top: 1px solid black;
+}
+
+@media (max-width:1060px) {
+    .itemPage {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .itemPage__img {}
+
+    .itemPage__img {}
+}
+
+@media (max-width:760px) {
+    .recomend__Item {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .item__recomened {
+        width: 280px;
+    }
+
+    .itemPage__text {
+        gap: 10px;
+    }
 }
 </style>

@@ -93,6 +93,7 @@ export default {
 </script>
 
 <style scoped>
+
 .sizeItem {
   text-align: start;
   padding: 0 10px;
@@ -203,10 +204,12 @@ img {
   height: 60px;
   max-width: 100%;
   padding: 0 10px;
+  font-size: 17px;
 }
 
 .price {
-  font-size: 13px;
+  font-size: clamp(0.813rem, 0.699rem + 0.57vw, 1.125rem);
   font-weight: 800;
 }
+
 </style>

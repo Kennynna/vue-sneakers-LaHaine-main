@@ -17,10 +17,7 @@ const props = defineProps({
 
 });
 
-const activeLink = ref('');
-const selectLink = (link) => {
-  activeLink.value = link;
-};
+
 </script>
 <template>
   <header>
@@ -37,6 +34,9 @@ const selectLink = (link) => {
 
       </div>
       <div class="basket">
+        <div class="basket__notification">
+          <p class="text-xs font-extrabold">товар добавлен в корзину</p>
+        </div>
         <div class="basket__number">{{ cartItemCount }}</div>
         <router-link to="/basket">
           <svg width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +76,36 @@ const selectLink = (link) => {
 </template>
 
 <style scoped>
+.basket__notification{
+  opacity: 0;
+  cursor: auto;
+  position: absolute;
+  top: 100%;
+  right:-70px;
+  width: max-content;
+  text-align: center;
+  background-color: white;
+  padding: 5px 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  animation-name: opas;
+  animation-duration: 2s;
+  
+}
+@keyframes opas{
+  0%{
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100%{
+    opacity: 1;
+      transform: translateY(0%);
+  }
+}
+
+.basket{
+  position: relative;
+}
 .favorite {
   cursor: pointer;
 }
@@ -173,6 +203,7 @@ img {
     gap: 20px;
     width: 100%;
     top: 0;
+    right: 0;
     border-radius: 0px
   }
 
