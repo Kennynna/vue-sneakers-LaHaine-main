@@ -1,8 +1,8 @@
 <script setup>
-import HeaderVue from './components/Pages/Header.vue'
+import HeaderVue from './components/Pages/Home/Header.vue'
 import { ref, computed } from 'vue'
 import { useAuthStore } from './auth'; // Путь к вашему файлу auth.js может отличаться
-
+import Footer from './components/Footer.vue';
 const authStore = useAuthStore();
 const userInfo = computed(() => {
   authStore.userInfo.value
@@ -19,13 +19,6 @@ const toggleMobileMenu = () => {
 const emailUser = ref('User')
 emailUser.value = userInfo
 </script>
-
-
-
-
-
-
-
 
 
 <template>
@@ -46,16 +39,12 @@ emailUser.value = userInfo
     </div>
     <HeaderVue :email="emailUser.value" />
     <router-view></router-view>
+    <Footer></Footer>
+    
   </div>
 </template>
 
 <style scoped>
-body {
-  background: -webkit-linear-gradient(225deg, rgb(184, 224, 215), rgb(255, 255, 255));
-  background: -moz-linear-gradient(225deg, rgb(184, 224, 215), rgb(255, 255, 255));
-  background: linear-gradient(225deg, rgb(184, 224, 215), rgb(255, 255, 255));
-  background-repeat: no-repeat;
-}
 
 .mob_header {
   display: none;

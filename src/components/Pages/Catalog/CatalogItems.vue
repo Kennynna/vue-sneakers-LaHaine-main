@@ -201,4 +201,10 @@ img {
   font-size: clamp(0.813rem, 0.699rem + 0.57vw, 1.125rem);
   font-weight: 800;
 }
+@media (max-width:301px) {
+  .title{
+    line-height: 100%;
+    font-size: 16px;
+  }
+}
 </style>

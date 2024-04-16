@@ -10,9 +10,6 @@ const props = defineProps({
   buyCount: Number,
   id: Number,
 });
-onMounted(() => {
-  console.log(props.id)
-})
 const store = useStore();
 const router = useRouter();
 const selectedSize = ref(props.sizes[0]);

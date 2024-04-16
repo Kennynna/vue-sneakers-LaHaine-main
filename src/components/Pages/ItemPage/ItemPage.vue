@@ -41,15 +41,13 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import CatalogItems from './Pages/Catalog/CatalogItems.vue';
+import CatalogItems from '@/components/Pages/Catalog/CatalogItems.vue';
 const store = useStore();
 const itemCard = computed(() => store.state.ItemCard);
 const router = useRouter();
-console.log(itemCard.value.imgUrl)
 router.push({ name: 'ItemPage', params: { id: itemCard.value.id } });
 
 const selectedImageURL = ref(null); // Data property for selected image URL

@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onMounted } from 'vue';
-import Item from '../../Item.vue'
-import MainSwiper from '../../MainSwiper.vue';
-import PresentInfo from '@/components/Pages/Home/PresentInfo.vue'
+import Item from '@/components/Item.vue'
+import MainSwiper from '@/components/MainSwiper.vue';
+import PresentInfo from '@/components/PresentInfo.vue'
 import { useStore } from 'vuex';
 
 onMounted(() => {
@@ -11,7 +11,6 @@ onMounted(() => {
 const store = useStore()
 const items = computed(() => store.state.items)
 const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0, 3)
-console.log(sortedItems[0].id)
 
 </script>
 

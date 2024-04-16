@@ -1,5 +1,5 @@
 <script setup>
-import MainContent from './MainContent.vue'
+import MainContent from '@/components/MainContent.vue'
 </script>
 
 <template>

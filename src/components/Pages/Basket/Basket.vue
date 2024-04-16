@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import BasketItem from './BasketItem.vue'
-import { computed, onMounted, ref, onUnmounted, onBeforeUnmount } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import Uinput from './Uinput.vue';
 
@@ -12,16 +12,15 @@ onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента
   store.dispatch('fetchCartItems');
   // Добавляем обработчик события для кнопки "Оплатить"
-  const paymentButton = document.querySelector('.basketright button');
-  paymentButton.addEventListener('click', () => {
-    if (store.state.cartItems.length > 0) {
-      isPaymentFormVisible.value = true;
-    }
-    else {
-      paymentButton.stopPropagation
-    }
-  });
-});
+})
+const paymentButton = () => {
+  if (store.state.cartItems.length > 0) {
+    isPaymentFormVisible.value = true
+  }
+  else {
+    isPaymentFormVisible.value = false
+  }
+}
 const closePaymentForm = () => {
   isPaymentFormVisible.value = false;
 };
@@ -44,6 +43,8 @@ const totalPrice = computed(() => {
   return Items.value.reduce((sum, item) => sum + item.price, 0)
 })
 
+
+//Проверка пользователя для оплаты товара
 </script>
 
 <template>
@@ -59,10 +60,16 @@ const totalPrice = computed(() => {
         <h3>Оформление заказа</h3>
         <p>Всего позиций : {{ Items.length }}</p>
         <p>Итого: {{ totalPrice }} руб</p>
-        <button>Оплатить</button>
+        <button @click="paymentButton" :style="{
+          opacity: Items.length > 0 ? '1' : '0.5',
+          cursor: Items.length === 0 ? 'default' : 'pointer',
+        }">
+          Оплатить
+        </button>
       </div>
     </div>
-    <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" :OrderArray="Items" :TotalPrice="totalPrice" :Items="Items"/>
+    <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" :OrderArray="Items" :TotalPrice="totalPrice"
+      :Items="Items" />
     <!-- Добавлено условное отображение -->
   </div>
 </template>
@@ -81,7 +88,9 @@ button {
   -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
   cursor: pointer;
+
 }
+
 
 .basket {
   display: flex;
@@ -90,6 +99,7 @@ button {
   gap: 10px;
   position: relative;
   z-index: 1;
+  min-height: 70vh;
 }
 
 .basketleft {
@@ -113,16 +123,17 @@ button {
   height: 100%;
 }
 
-h2{
+h2 {
   font-size: 29px;
   font-weight: 700;
   margin-bottom: 30px;
 }
 
 
-p{
+p {
   font-weight: 700;
 }
+
 @media (max-width: 760px) {
   .basket {
     flex-direction: column;

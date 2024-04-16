@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="admin">
     <h1 class="">Панель админа</h1>
     <div class="nav list-none flex justify-between p- subpixel-antialiased font-bold">
       <li>
@@ -39,6 +39,9 @@ onMounted(fetchOrders);
 </script>
 
 <style scoped>
+.admin{
+  min-height: 70vh;
+}
 h1 {
   font-size: 36px;
   text-align: center;

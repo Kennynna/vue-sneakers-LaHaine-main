@@ -2,7 +2,6 @@
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import 'primeicons/primeicons.css'
-import { ref } from 'vue'
 const store = useStore();
 onMounted(() => {
   // Вызываем действие fetchCartItems после монтирования компонента

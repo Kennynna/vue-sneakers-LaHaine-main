@@ -5,7 +5,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from "vue-router";
 import Home from '/src/components/Pages/Home/Home.vue';
-import About from '/src/components/Pages/About.vue';
+import About from '/src/components/Pages/About/About.vue';
 import Catalog from '/src/components/Pages/Catalog/Catalog.vue'
 import App from './App.vue'
 import Basket from './components/Pages/Basket/Basket.vue';
@@ -13,9 +13,9 @@ import AdminPage from './components/Pages/Admin/AdminPage.vue';
 import NewOrders from './components/Pages/Admin/NewOrders.vue';
 import AddPosition from './components/Pages/Admin/AddPosition.vue';
 import ViewAllProducts from './components/Pages/Admin/ViewAllProducts.vue'
-import ItemPage from './components/ItemPage.vue';
-import Contacts from './components/Contacts.vue';
-import Feedback from './components/Feedback.vue';
+import ItemPage from './components/Pages/ItemPage/ItemPage.vue';
+import Contacts from './components/Pages/Contacts/Contacts.vue';
+import Feedback from './components/Pages/Feedback/Feedback.vue';
 import './index.css'
 import AuthUser from './components/Pages/Auth/AuthUser.vue';
 import { createPinia } from 'pinia'
