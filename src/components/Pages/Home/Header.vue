@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import 'primeicons/primeicons.css'
 const store = useStore();
@@ -12,8 +12,23 @@ const cartItemCount = computed(() => store.state.cartItemCount);
 
 const props = defineProps({
   email: String,
+  exit: Function
 
+});
 
+const isUserMenu = ref(false)
+const showUserMenu = () => {
+  isUserMenu.value = !isUserMenu.value
+}
+
+window.addEventListener('click', (event) => {
+  const userMenu = document.querySelector('.user__action-list');
+  const userButton = document.querySelector('.pi-user');
+
+  if (userMenu && !userMenu.contains(event.target) && event.target !== userButton) {
+    isUserMenu.value = false;
+  }
+  console.log(isUserMenu.value)
 });
 
 
@@ -29,7 +44,6 @@ const props = defineProps({
         <router-link to="/about">О нас</router-link>
         <router-link to="/catalog">Каталог</router-link>
         <router-link to="/contacts">Контакты</router-link>
-        <router-link to="/feedback">Отзывы</router-link>
 
       </div>
       <div class="basket">
@@ -62,8 +76,17 @@ const props = defineProps({
           </svg></router-link>
       </div>
       <div class="user flex align-items-center gap-5">
-        <p>{{ props.email === '' ? 'User' : props.email }}</p>
-        <router-link to="/auth"><i class="pi pi-user" style="font-size: 1.5rem"></i></router-link>
+        <p>{{ email === '' ? 'User' : email }}</p>
+        <i @click="showUserMenu" class="pi pi-user" style="font-size: 1.5rem"></i>
+        <div class="user__action-list" v-if="isUserMenu">
+          <ul>
+            <router-link to="/auth">
+              <li @click="showUserMenu" class="user__sign">Войти</li>
+            </router-link>
+            <li class="user__exit" @click="exit(); showUserMenu()">
+              Выход</li>
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -71,36 +94,71 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.basket__notification{
+li:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white
+}
+
+li {
+  padding: 5px 5px;
+}
+
+.user {
+  position: relative;
+  align-items: center;
+
+}
+
+.pi-user {
+  border: 2px solid black;
+  padding: 5px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+
+.user__action-list {
+  position: absolute;
+  bottom: -85px;
+  background-color: white;
+  border: 1px solid black;
+  border-top: none;
+  z-index: 1;
+}
+
+.basket__notification {
   opacity: 0;
   cursor: auto;
   position: absolute;
   top: 100%;
-  right:-70px;
+  right: -70px;
   width: max-content;
   text-align: center;
   background-color: white;
-  padding: 5px 5px;
   border-radius: 5px;
   border: 1px solid gray;
   animation-name: opas;
   animation-duration: 2s;
-  
+
 }
-@keyframes opas{
-  0%{
+
+@keyframes opas {
+  0% {
     opacity: 0;
     transform: translateY(-100%);
   }
-  100%{
+
+  100% {
     opacity: 1;
-      transform: translateY(0%);
+    transform: translateY(0%);
   }
 }
 
-.basket{
+.basket {
   position: relative;
 }
+
 .favorite {
   cursor: pointer;
 }
@@ -180,6 +238,7 @@ img {
   height: 100px;
   border-radius: 10px;
 }
+
 .router-link-active {
   box-shadow: 0px -8px 0px -5px rgba(0, 0, 0, 0.6) inset;
 }

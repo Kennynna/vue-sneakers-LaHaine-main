@@ -4,11 +4,11 @@ import { ref, computed } from 'vue'
 import { useAuthStore } from './auth'; // Путь к вашему файлу auth.js может отличаться
 import Footer from './components/Footer.vue';
 const authStore = useAuthStore();
+//Данные юзера из auth
 const userInfo = computed(() => {
   authStore.userInfo.value
   return authStore.userInfo.email;
 });
-
 // Создаем переменную состояния для отслеживания видимости мобильного меню
 const isMobileMenuVisible = ref(false)
 
@@ -17,7 +17,10 @@ const toggleMobileMenu = () => {
   isMobileMenuVisible.value = !isMobileMenuVisible.value
 }
 const emailUser = ref('User')
+
+
 emailUser.value = userInfo
+console.log(emailUser.value)
 </script>
 
 
@@ -35,12 +38,11 @@ emailUser.value = userInfo
       <router-link class="header__link-item  " to="/about" @click="toggleMobileMenu">О нас</router-link>
       <router-link class="header__link-item  " to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
       <router-link class="header__link-item  " to="/contacts" @click="toggleMobileMenu">Контакты</router-link>
-      <router-link class="header__link-item  " to="/feedback" @click="toggleMobileMenu">Отзывы</router-link>
     </div>
-    <HeaderVue :email="emailUser.value" />
+    <HeaderVue :email="emailUser.value" :exit="authStore.exitUser"/>
     <router-view></router-view>
     <Footer></Footer>
-    
+
   </div>
 </template>
 

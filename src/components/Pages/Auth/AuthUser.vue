@@ -191,7 +191,7 @@ body {
 }
 
 .background {
-  width: 430px;
+  width: clamp(19.375rem, 16.648rem + 13.64vw, 26.875rem);
   height: 520px;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -239,7 +239,7 @@ body {
   background: linear-gradient(to right,
       #454141,
       #000000);
-  right: -30px;
+  right: clamp(-1.875rem, -3.239rem + 6.82vw, 1.875rem);
   bottom: -80px;
   animation: cicrle1;
   animation-duration: 20s;
@@ -266,7 +266,7 @@ body {
 
 form {
   font-weight: bold;
-  width: 600px;
+  width: clamp(18.75rem, 11.932rem + 34.09vw, 37.5rem);
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
   transform: translate(-50%, -50%);
@@ -276,7 +276,7 @@ form {
   backdrop-filter: blur(10px);
   border: 10px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+  padding: 50px clamp(-5rem, -10.227rem + 26.14vw, 9.375rem)
 }
 
 form * {
@@ -356,12 +356,18 @@ button {
   margin-right: 4px;
 }
 
-@media (max-width: 790px){
-  .shape:first-child{
+@media (max-width: 790px) {
+  .shape:first-child {
     animation-name: none;
   }
-    .shape:last-child{
-      animation-name: none;
-    }
+
+  .shape:last-child {
+    animation-name: none;
+    bottom: 150px;
+    right: 10px;
+  }
+  form{
+    top:30%
+  }
 }
 </style>

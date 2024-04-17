@@ -104,11 +104,11 @@
                 </path>
               </svg>
             </a>
-
-
           </div>
         </ul>
       </div>
+      <p class="mt-5 text-center font-extrabold">@La Haine. Все права защищены</p>
+      <p class="text-center font-extrabold">2016-2024</p>
     </div>
   </footer>
 </template>

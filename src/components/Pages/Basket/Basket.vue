@@ -4,6 +4,15 @@ import BasketItem from './BasketItem.vue'
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import Uinput from './Uinput.vue';
+import { useAuthStore } from '@/auth.js'
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const authStore = useAuthStore()
+
+const userInfo = computed(() => {
+  authStore.userInfo.value
+  return authStore.userInfo.email;
+});
 
 const store = useStore();
 const isPaymentFormVisible = ref(false);
@@ -14,11 +23,12 @@ onMounted(() => {
   // Добавляем обработчик события для кнопки "Оплатить"
 })
 const paymentButton = () => {
-  if (store.state.cartItems.length > 0) {
-    isPaymentFormVisible.value = true
-  }
-  else {
-    isPaymentFormVisible.value = false
+  if (store.state.cartItems.length > 0 && userInfo.value) {
+    isPaymentFormVisible.value = true;
+  } else {
+    alert('Добавьте товар или зарегистрируйтесь');
+    isPaymentFormVisible.value = false;
+    router.push({ name: 'Auth' });
   }
 }
 const closePaymentForm = () => {
@@ -51,7 +61,13 @@ const totalPrice = computed(() => {
   <div class="basket">
     <div class="basketleft">
       <h2>Корзина</h2>
-      <p v-if="Items.length === 0" class="text-red-400 text-2xl tracking-wide uppercase ">Ваша корзина пуста</p>
+      <div v-if="Items.length === 0">
+        <p class="text-red-400 text-2xl tracking-wide uppercase ">Ваша корзина пуста</p>
+        <router-link to="/catalog">
+          <p class="text-2xl mt-10 uppercase">Перейти в каталог </p>
+        </router-link>
+      </div>
+
       <BasketItem v-else v-for="item in Items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
         :imgUrl="item.imgUrl" :id="item.id" :remove="removeFromBasket" />
     </div>
@@ -59,7 +75,7 @@ const totalPrice = computed(() => {
       <div class="textcontent">
         <h3>Оформление заказа</h3>
         <p>Всего позиций : {{ Items.length }}</p>
-        <p>Итого: {{ totalPrice }} руб</p>
+        <p>Итого: {{ Items.length >= 5 ? totalPrice - (totalPrice*100/10) : totalPrice }} руб</p>
         <button @click="paymentButton" :style="{
           opacity: Items.length > 0 ? '1' : '0.5',
           cursor: Items.length === 0 ? 'default' : 'pointer',
@@ -69,7 +85,7 @@ const totalPrice = computed(() => {
       </div>
     </div>
     <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" :OrderArray="Items" :TotalPrice="totalPrice"
-      :Items="Items" />
+      :Items="Items" :email="userInfo" />
     <!-- Добавлено условное отображение -->
   </div>
 </template>
@@ -106,6 +122,7 @@ button {
   width: 70%;
   background-color: rgb(236 236 236);
   border-radius: 20px;
+  overflow-y: scroll;
 }
 
 .basketright {
