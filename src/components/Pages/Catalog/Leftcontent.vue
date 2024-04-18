@@ -1,49 +1,32 @@
 <script setup>
-import { ref } from 'vue'
-const visibleSneakers = ref(false);
-const visibleClothes = ref(false);
-const visibleAccessories = ref(false);
+import { ref, defineEmits } from 'vue';
 
-const toggleVisibility = (item) => {
-  if (item === 'sneakers') {
-    visibleSneakers.value = !visibleSneakers.value;
-  } else if (item === 'clothes') {
-    visibleClothes.value = !visibleClothes.value;
-  } else if (item === 'accessories') {
-    visibleAccessories.value = !visibleAccessories.value
-  }
-}
+const emit = defineEmits(['update:modelValue']);
+
+const selectedCategory = ref('Все товары');
+
+const changeCatecory = (categoryName) => {
+  selectedCategory.value = categoryName;
+  updateCategory(selectedCategory.value); // Вызываем updateCategory с новым значением
+};
+
+const updateCategory = (newCategory) => {
+  emit('update:modelValue', newCategory); // Используем 'update:modelValue'
+  console.log(newCategory)
+};
 </script>
 
 <template>
   <div class="leftmenu">
     <ul class="sneakers_table">
-      <p @click="toggleVisibility('sneakers')" class="sneakers_table-item">Кроссовки</p>
-      <div class="sneakers">
-        <ul v-if="visibleSneakers" class="categoryItem visible">
-          <li class="sneakers__li">ADIDAS</li>
-          <li class="sneakers__li">NIKE</li>
-          <li class="sneakers__li">NEW BALANCE</li>
-        </ul>
-      </div>
-
-      <p @click="toggleVisibility('clothes')" class="sneakers_table-item">Одежда</p>
-      <div class="clothes">
-        <ul v-if="visibleClothes" class="categoryItem visible">
-          <li class="active">ADIDAS</li>
-          <li>NIKE</li>
-          <li>NEW BALANCE</li>
-        </ul>
-      </div>
-
-      <p @click="toggleVisibility('accessories')" class="sneakers_table-item">Аксессуары</p>
-      <div class="accessories">
-        <ul v-if="visibleAccessories" class="categoryItem visible">
-          <li>СУМКИ</li>
-          <li>ПАРТОМНЕ</li>
-          <li>СЕРДСТВА ДЛЯ УХОДА</li>
-        </ul>
-      </div>
+      <p class="sneakers_table-item" :class="{ 'active': selectedCategory === '' }"
+        @click="changeCatecory('')">Все товары</p>
+      <p class="sneakers_table-item" :class="{ 'active': selectedCategory === 'sneakers' }"
+        @click="changeCatecory('sneakers')">Обувь</p>
+      <p class="sneakers_table-item" :class="{ 'active': selectedCategory === 'clothes' }"
+        @click="changeCatecory('clothes')">Одежда</p>
+      <p class="sneakers_table-item" :class="{ 'active': selectedCategory === 'Аксессуары' }"
+        @click="changeCatecory('Аксессуары')">Аксессуары</p>
     </ul>
   </div>
 </template>
@@ -51,40 +34,8 @@ const toggleVisibility = (item) => {
 <style scoped>
 .active {
   font-weight: 800;
-  color: black;
-}
-
-.sneakers__li {
-  cursor: pointer;
-}
-
-.categoryItem {
-  display: none;
-
-}
-
-.sneakers,
-.clothes,
-.accessories {
-  overflow: hidden;
-}
-
-.categoryItem.visible {
-  display: block;
-  animation-name: visible;
-  animation-duration: 0.2s;
-
-
-}
-
-@keyframes visible {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
+  color: white;
+  background-color: black;
 }
 
 p,

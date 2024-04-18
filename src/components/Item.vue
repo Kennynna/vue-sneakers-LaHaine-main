@@ -78,7 +78,7 @@ const favoriteSrcSelected = ref('/public/sneakersCart/Icons/favourite.svg');
     </div>
     <div class="itemCart__mainImg">
       <div class="pagination">
-        <img class="MainImg" :src="imgUrl[currentImageIndex]" alt="mainImg" />
+        <img @click="viewItem" class="MainImg" :src="imgUrl[currentImageIndex]" alt="mainImg" />
         <!-- Используем текущее изображение из массива -->
         <svg key class="prevImage" v-if="currentImageIndex > 0" @click="prevImage" width="20px" height="20px"
           viewBox="-102.4 -102.4 1228.80 1228.80" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#aaaaaa"
@@ -120,16 +120,36 @@ const favoriteSrcSelected = ref('/public/sneakersCart/Icons/favourite.svg');
       </svg>
       <div ref="sizeList" class=" sizelist">
         <span class="size__item" v-for="(sizeItem, index) in sizes" :key="index" @click="selectSize(sizeItem)">
-          {{sizeItem }}</span>
+          {{ sizeItem }}</span>
       </div>
     </div>
     <p class="price">{{ price }} руб</p>
-    <button @click="viewItem">Посмотреть товар</button>
-    <p>Количество покупок: {{ buyCount }}</p>
+    <button class="view__btn" @click="viewItem">Посмотреть товар</button>
+    <p>Количество покупок: <span class="font-extrabold"> {{ buyCount }} </span> </p>
   </div>
 </template>
 
 <style scoped>
+.view__btn {
+  margin: 0;
+  background-color: rgba(192, 191, 191, 0.876);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 5px 9px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(35, 37, 37);
+  transition: 0.3s;
+
+}
+
+.view__btn:hover {
+  background-color: rgb(65, 63, 63);
+  color: white;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.685) inset;
+}
+
 .sizelist {
   z-index: 100;
 }

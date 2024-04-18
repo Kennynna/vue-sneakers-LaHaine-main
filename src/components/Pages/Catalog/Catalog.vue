@@ -3,9 +3,8 @@ import Leftcontent from './Leftcontent.vue'
 import CatalogItems from './CatalogItems.vue'
 import { computed, onMounted, ref } from 'vue';
 import { useStore, } from 'vuex';
-
-
 const store = useStore();
+
 
 // Асинхронная функция для загрузки данных
 const loadData = async () => {
@@ -14,25 +13,37 @@ const loadData = async () => {
 
 // Вызовите асинхронную функцию внутри onMounted
 onMounted(loadData);
+const changeModel = ref('')
+
+
+
 
 //Фильтр
-const sortOrder = ref('asc');
-const search = ref('');
+const sortOrder = ref('asc');//checkbox 
+const search = ref('');//input 
+const CategoryChange = ref('');
 const filteredItems = computed(() => {
-  let items = store.state.items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
+  // Начинаем с полного списка элементов
+  let items = store.state.items;
+
+  // Фильтрация по поисковому запросу
+  if (search.value) {
+    items = items.filter(item => item.title.toLowerCase().includes(search.value.toLowerCase()));
+  }
+  // Фильтрация по модели
   if (changeModel.value) {
     items = items.filter(item => item.title.toLowerCase().includes(changeModel.value.toLowerCase()));
+  }
+  if (CategoryChange.value) {
+    items = items.filter(item => item.category.toLowerCase().includes(CategoryChange.value.toLowerCase()));
   }
   if (sortOrder.value) {
     items = items.sort((a, b) => {
       const priceA = a.price;
       const priceB = b.price;
-
       if (sortOrder.value === 'asc') {
-        // Сортировка по возрастанию
         return priceA - priceB;
       } else if (sortOrder.value === 'desc') {
-        // Сортировка по убыванию
         return priceB - priceA;
       }
     });
@@ -40,17 +51,10 @@ const filteredItems = computed(() => {
 
   return items;
 });
+
 const cleanSearch = () => {
   search.value = ''
 }
-const changeModel = ref('')
-const modelChangeSort = (e) => {
-  if (e.target.checked) {
-    changeModel.value = e.target.value;
-  } else {
-    changeModel.value = '';
-  }
-};
 
 
 </script>
@@ -110,19 +114,14 @@ const modelChangeSort = (e) => {
           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </div>
-    <select name="Сортировка" v-model="sortOrder" @change="handleSortChange($event.target.value)">
+    <select name="Сортировка" v-model="sortOrder">
       <option value="asc">по возрастанию</option>
       <option value="desc">по убыванию</option>
     </select>
   </div>
-  <div class="inptuChek flex mt-5 gap-1">
-    <input @change="modelChangeSort" type="checkbox" name="Nike" value="Nike" />Nike
-    <input @change="modelChangeSort" type="checkbox" name="Adidas" value="Adidas" />Adidas
-    <input @change="modelChangeSort" type="checkbox" name="Jordan" value="Jordan" />Jordan
-  </div>
 
   <div class="container__catalog">
-    <Leftcontent></Leftcontent>
+    <Leftcontent v-model="CategoryChange"></Leftcontent>
     <div class="item__catalog">
       <CatalogItems v-for="(item, index) in filteredItems" :key="index" :catalogItem="item" />
     </div>
@@ -195,6 +194,7 @@ input {
   background-color: rgb(236 236 236);
   border-radius: 20px;
   padding: 20px 20px;
+  min-height: 70vh;
 }
 
 
@@ -207,7 +207,8 @@ input {
   .leftmenu {
     flex-direction: row;
   }
-  .sort{
+
+  .sort {
     flex-direction: column;
   }
 }
@@ -233,6 +234,4 @@ input {
   }
 
 }
-
-  
 </style>

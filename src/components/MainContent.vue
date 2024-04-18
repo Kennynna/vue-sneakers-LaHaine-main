@@ -23,7 +23,7 @@ const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0,
       <MainSwiper />
     </div>
     <div class="mainContent">
-      <h2>TOP 3 orders</h2>
+      <h2 class="newItems top">TOP 3 orders</h2>
     </div>
     <div class="itemCart__content">
       <Item v-for="(item, index) in sortedItems" :key="index" :title="item.title" :price="item.price" :sizes="item.size"

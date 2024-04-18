@@ -78,15 +78,15 @@ window.addEventListener('click', (event) => {
           </svg></router-link>
       </div>
       <div class="user flex align-items-center gap-5">
-        <p>{{ email === '' ? 'User' : email }}</p>
+        <p class="user__email">{{ email === '' ? 'User' : email }}</p>
         <i @click="showUserMenu" class="pi pi-user" style="font-size: 1.5rem"></i>
         <div class="user__action-list" v-if="isUserMenu">
           <ul class="user__action-list-ul">
             <router-link to="/auth">
               <li @click="showUserMenu" class="user__sign">Войти</li>
             </router-link>
-            <li class="user__exit" @click="exit(); showUserMenu()">
-              Выход</li>
+            <li class="user__exit" @click="exit(); showUserMenu()">Выход</li>
+            <li>{{ email }}</li>
           </ul>
         </div>
       </div>
@@ -96,9 +96,17 @@ window.addEventListener('click', (event) => {
 </template>
 
 <style scoped>
-.user__action-list-ul{
+.user__email {
+  white-space: nowrap;
+  /* Текст не переносится */
+  text-overflow: ellipsis;
+  /* Добавляем многоточие */
+}
+
+.user__action-list-ul {
   display: flex;
 }
+
 li:hover {
   cursor: pointer;
   background-color: black;
@@ -112,7 +120,10 @@ li {
 .user {
   position: relative;
   align-items: center;
-
+  white-space: nowrap;
+  /* Текст не переносится */
+  text-overflow: ellipsis;
+  /* Добавляем многоточие */
 }
 
 .pi-user {
@@ -278,9 +289,13 @@ img {
 
 }
 
-
+@media (max-width: 430px) {
+  .user__email{
+    max-width: 80px;
+    overflow: hidden;
+  }
+}
 
 .header__items-profile {
   display: none;
-}
-</style>
+}</style>
