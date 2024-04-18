@@ -32,6 +32,8 @@ window.addEventListener('click', (event) => {
 });
 
 
+
+
 </script>
 <template>
   <header>
@@ -79,7 +81,7 @@ window.addEventListener('click', (event) => {
         <p>{{ email === '' ? 'User' : email }}</p>
         <i @click="showUserMenu" class="pi pi-user" style="font-size: 1.5rem"></i>
         <div class="user__action-list" v-if="isUserMenu">
-          <ul>
+          <ul class="user__action-list-ul">
             <router-link to="/auth">
               <li @click="showUserMenu" class="user__sign">Войти</li>
             </router-link>
@@ -94,6 +96,9 @@ window.addEventListener('click', (event) => {
 </template>
 
 <style scoped>
+.user__action-list-ul{
+  display: flex;
+}
 li:hover {
   cursor: pointer;
   background-color: black;
@@ -120,11 +125,13 @@ li {
 
 .user__action-list {
   position: absolute;
-  bottom: -85px;
+  bottom: -60%;
   background-color: white;
   border: 1px solid black;
   border-top: none;
-  z-index: 1;
+  z-index: 2;
+  right: -50%px;
+  font-size: 10px;
 }
 
 .basket__notification {

@@ -1,14 +1,35 @@
 <script setup>
+import axios from 'axios';
 import HeaderVue from './components/Pages/Home/Header.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from './auth'; // Путь к вашему файлу auth.js может отличаться
 import Footer from './components/Footer.vue';
 const authStore = useAuthStore();
+
+const User = ref({})
+
 //Данные юзера из auth
-const userInfo = computed(() => {
-  authStore.userInfo.value
-  return authStore.userInfo.email;
+onMounted(() => {
+  const storedUserInfo = localStorage.getItem('userInfo');
+  if (!storedUserInfo) {
+    return;
+  } else if (storedUserInfo) {
+    User.value = JSON.parse(storedUserInfo); // Загружаем информацию о пользователе из localStorage
+    const signUp = async () => {
+      //загрузка данных на наш бэк
+      try {
+        console.log(User)
+        await authStore.auth({ email: User.value.email, password: User.value.password }, 'signInWithPassword')
+      } catch {
+        console.log('qwe')
+      }
+    }
+    signUp()
+  }
 });
+
+// Создаем вычисляемое свойство для доступа к email пользователя
+
 // Создаем переменную состояния для отслеживания видимости мобильного меню
 const isMobileMenuVisible = ref(false)
 
@@ -16,13 +37,8 @@ const isMobileMenuVisible = ref(false)
 const toggleMobileMenu = () => {
   isMobileMenuVisible.value = !isMobileMenuVisible.value
 }
-const emailUser = ref('User')
 
-
-emailUser.value = userInfo
-console.log(emailUser.value)
 </script>
-
 
 <template>
   <div class="content">
@@ -39,7 +55,7 @@ console.log(emailUser.value)
       <router-link class="header__link-item  " to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
       <router-link class="header__link-item  " to="/contacts" @click="toggleMobileMenu">Контакты</router-link>
     </div>
-    <HeaderVue :email="emailUser.value" :exit="authStore.exitUser"/>
+    <HeaderVue :email="authStore.userInfo.email" :exit="authStore.exitUser" />
     <router-view></router-view>
     <Footer></Footer>
 
@@ -47,7 +63,6 @@ console.log(emailUser.value)
 </template>
 
 <style scoped>
-
 .mob_header {
   display: none;
   flex-direction: column;
@@ -108,9 +123,10 @@ console.log(emailUser.value)
 }
 
 @media (max-width: 790px) {
-  .content{
+  .content {
     margin-top: 120px;
   }
+
   .mob_header {
     margin: 0;
     display: flex;
@@ -121,7 +137,7 @@ console.log(emailUser.value)
   .mobnav {
     display: block;
     top: 25px;
-    right:  30px;
+    right: 30px;
   }
 
   a {
@@ -160,23 +176,26 @@ console.log(emailUser.value)
   .mobnav-active .spannav3::after {
     display: none;
   }
-.header__link-sign,.header__link-registr {
- background-color: white;
- color: rgb(0, 0, 0);
- margin: 0 10px;
 
- margin-top: 20px;
- padding: 5px 5;
- border-radius: 10px;
-}
-.header__link-item{
-  text-align: center;
-  height: 50px;
-  font-size: 23px ;
-  background-color: rgb(255, 255, 255);
-  color: black;
-  border: 5px solid black;
-  font-weight: 300;
-}
+  .header__link-sign,
+  .header__link-registr {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    margin: 0 10px;
+
+    margin-top: 20px;
+    padding: 5px 5;
+    border-radius: 10px;
+  }
+
+  .header__link-item {
+    text-align: center;
+    height: 50px;
+    font-size: 23px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 5px solid black;
+    font-weight: 300;
+  }
 }
 </style>

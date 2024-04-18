@@ -4,6 +4,7 @@ import { useAuthStore } from '@/auth';
 import Message from 'primevue/message';
 import { useRouter } from 'vue-router';
 import ProgressSpinner from 'primevue/progressspinner';
+import axios from 'axios';
 
 const router = useRouter();
 //косметический код (Тумблер для класса active  и v-if при регистрации либо входа)
@@ -36,18 +37,39 @@ const signUp = async () => {
   if (warningPassword.value) {
     return;
   }
-  await authStore.auth({ email: email.value, password: password.value }, 'signUp')
-  isRegister.value = true
-  email.value = ''
-  password.value = ''
-  passwordChek.value = ''
-  setTimeout(() => {
-    router.push('/catalog')
-    isRegister.value = false
-  }, 2000)
+  //загрузка данных на наш бэк
+  try {
+    isRegister.value = true
+    await authStore.auth({ email: email.value, password: password.value }, 'signUp')
+    let user = {
+      password:password.value,
+      email:email.value
+    }
+    localStorage.setItem('userInfo', JSON.stringify(user))
+    //сбрасывание ипутов
+    email.value = ''
+    password.value = ''
+    passwordChek.value = ''
+    //переводим пользователя в каталог
+    setTimeout(() => {
+      router.push('/catalog')
+      //isRegister для того чтобы скрыть импуты и имитировать загрузку пока пользователь ждет
+      isRegister.value = false
+    }, 2000)
+  } catch {
+    alert('Не удалось загрузить данные на Mokki')
+  }
+
+  //перекидываем пользователя в каталог
+
 }
 const signIn = async () => {
   await authStore.auth({ email: email.value, password: password.value }, 'signInWithPassword')
+  let user = {
+    password: password.value,
+    email: email.value
+  }
+  localStorage.setItem('userInfo', JSON.stringify(user))
   isRegister.value = true
   email.value = ''
   password.value = ''
@@ -366,8 +388,9 @@ button {
     bottom: 150px;
     right: 10px;
   }
-  form{
-    top:30%
+
+  form {
+    top: 30%
   }
 }
 </style>

@@ -28,6 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
                 userId: response.data.localId,
                 refreshToken: response.data.refreshToken,
                 expireIn: response.data.expiresIn,
+                
             }
             console.log(userInfo.value)
             isAuthenticated.value = true
@@ -72,7 +73,9 @@ export const useAuthStore = defineStore('auth', () => {
             expireIn: '',
 
         }
+         localStorage.removeItem('userInfo'); // Удаление
          console.log(userInfo.value)
+         location.reload();
 
     }
     return { auth, userInfo, error, isAuthenticated,exitUser }
