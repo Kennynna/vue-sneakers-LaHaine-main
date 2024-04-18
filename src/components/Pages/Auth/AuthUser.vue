@@ -58,6 +58,7 @@ const signUp = async () => {
     }, 2000)
   } catch {
     alert('Не удалось загрузить данные на Mokki')
+    isRegister.value = false
   }
 
   //перекидываем пользователя в каталог
