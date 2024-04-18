@@ -75,7 +75,9 @@ const totalPrice = computed(() => {
       <div class="textcontent">
         <h3>Оформление заказа</h3>
         <p>Всего позиций : {{ Items.length }}</p>
-        <p>Итого: {{ Items.length >= 5 ? totalPrice - (totalPrice*100/10) : totalPrice }} руб</p>
+        <p>на сумму {{ totalPrice}} руб</p>
+        <p>скидка: {{ Items.length >= 5 ? `-10% ${(totalPrice / 100 * 10)}` : '0' }} руб </p>
+        <p>Итого: {{ Items.length >= 5 ? totalPrice - (totalPrice / 100 * 10) : totalPrice }} руб </p>
         <button @click="paymentButton" :style="{
           opacity: Items.length > 0 ? '1' : '0.5',
           cursor: Items.length === 0 ? 'default' : 'pointer',
