@@ -3,7 +3,7 @@ import { ref, defineEmits } from 'vue';
 
 const emit = defineEmits(['update:modelValue']);
 
-const selectedCategory = ref('Все товары');
+const selectedCategory = ref('');
 
 const changeCatecory = (categoryName) => {
   selectedCategory.value = categoryName;

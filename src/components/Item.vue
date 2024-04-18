@@ -185,6 +185,7 @@ const favoriteSrcSelected = ref('/public/sneakersCart/Icons/favourite.svg');
 
 .itemCart {
   position: relative;
+  
 }
 
 .favorite__list-drawer {
