@@ -1,10 +1,12 @@
 <script>
 import axios from 'axios';
+import { onMounted, onUnmounted } from 'vue';
 export default {
     props: {
         closeForm: Function,
         OrderArray: Array,
-        email: String
+        email: String,
+        price: Number
     },
     setup(props) {
         const data = {
@@ -13,7 +15,7 @@ export default {
             email: props.email,
             number: "",
             adres: "",
-            data: ""
+            data: "",
         };
         const inputHandler = (e, fieldName) => {
             data[fieldName] = e.target.value;
@@ -29,6 +31,8 @@ export default {
                     OrderArray: props.OrderArray, // используем переданный prop OrderArray
                     date: new Date().toISOString(),
                     itemId: itemId,
+                    checked: false,
+                    totalPrice: (Number(props.price) - Number(props.price) / 100 * 10)
                 };
                 // Определите идентификаторы товаров для удаления
                 // Отправка заказа
@@ -38,13 +42,12 @@ export default {
             } catch (error) {
                 console.error('Ошибка при заказе товара:', error);
             }
+            
         };
         return { data, inputHandler, AddOrder };
+        
     },
 
-    UnOnMunted() {
-        console.log('unmounted');
-    }
 }
 
 </script>
@@ -53,7 +56,7 @@ export default {
 
 <template>
 
-        <div class="userForm active" ref="FormActive">
+    <div class="userForm active" ref="FormActive">
         <div class="userFrom__text">
             <p>Отправление заявки на покупку</p>
         </div>
@@ -61,7 +64,8 @@ export default {
             <input type="text" name="name" placeholder="Имя" @input="inputHandler($event, 'name')" :value="name" />
             <input type="text" name="surname" placeholder="Фамилия" @input="inputHandler($event, 'surname')"
                 :value="surname" />
-            <input type="text"  disabled name="email" placeholder="Email" @input="inputHandler($event, 'email')" :value="email" />
+            <input type="text" disabled name="email" placeholder="Email" @input="inputHandler($event, 'email')"
+                :value="email" />
             <input type="text" name="number" placeholder="+7(123)456-78-90" @input="inputHandler($event, 'number')"
                 :value="number" />
             <input type="text" name="adres" placeholder="Адрес доставки или пункта"

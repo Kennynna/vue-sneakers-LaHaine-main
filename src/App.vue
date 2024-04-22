@@ -1,7 +1,6 @@
 <script setup>
-import axios from 'axios';
 import HeaderVue from './components/Pages/Home/Header.vue'
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAuthStore } from './auth'; // Путь к вашему файлу auth.js может отличаться
 import Footer from './components/Footer.vue';
 const authStore = useAuthStore();
@@ -41,7 +40,7 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
-  <div class="content">
+  <div class="content" :class="{ 'no-scroll': isMobileMenuVisible }">
     <div class="mobnav" :class="{ 'mobnav-active': isMobileMenuVisible }" @click="toggleMobileMenu">
       <span class="spannav1"></span>
       <span class="spannav2"></span>
@@ -121,6 +120,7 @@ const toggleMobileMenu = () => {
   position: relative;
   padding: 0 20px;
 }
+
 
 @media (max-width: 790px) {
   .content {

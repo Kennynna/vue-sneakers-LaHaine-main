@@ -1,12 +1,17 @@
 @import url(https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;800;900&display=swap);
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+
+:root{
+  --bacground:rgba(160, 144, 144, 0.216);
+}
 *{
   box-sizing: border-box;
 }
 body {
   font-family: 'Exo 2', sans-serif; 
 }
+
 
 #app {  
   max-width: 1280px;
@@ -19,8 +24,7 @@ a,
   text-decoration: none;
 }
 
-@media (hover: hover) {
-
+.no-scroll {
+  overflow: hidden;
 }
-
 

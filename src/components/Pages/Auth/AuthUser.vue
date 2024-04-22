@@ -238,6 +238,7 @@ body {
   animation-duration: 20s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  will-change: cicrle;
 }
 
 @keyframes cicrle {
@@ -268,6 +269,7 @@ body {
   animation-duration: 20s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  will-change: cicrle1;
 }
 
 @keyframes cicrle1 {

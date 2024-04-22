@@ -1,11 +1,5 @@
 
 <template>
-    <div class="sort ">
-        <select class="mb-20" name="Сортировать по" id="">
-          <option value="">Дате заказа</option>
-          <option value="">Названию</option>
-        </select>
-      </div>
       <div class="content flex-column  flex-wrap">
         <NewOrdersItem v-for="(order, index) in OrdersUser" :key="index" :order="order" /> 
       </div>
@@ -31,6 +25,9 @@ onMounted(fetchOrders);
 </script>
 
 <style scoped>
+.content{
+  background-color: var(--bacground);
+}
 h1 {
   font-size: 36px;
   text-align: center;

@@ -64,32 +64,37 @@ const totalPrice = computed(() => {
       <div v-if="Items.length === 0">
         <p class="text-red-400 text-2xl tracking-wide uppercase ">Ваша корзина пуста</p>
         <router-link to="/catalog">
-          <p class="text-2xl mt-10 uppercase">Перейти в каталог </p>
+          <p class="text-2xl mt-10 uppercase  shadow-slate-700">Перейти в каталог </p>
         </router-link>
       </div>
 
       <BasketItem v-else v-for="item in Items" :key="item.id" :title="item.title" :price="item.price" :size="item.size"
         :imgUrl="item.imgUrl" :id="item.id" :remove="removeFromBasket" />
     </div>
+
+
     <div class="basketright">
       <div class="textcontent">
         <h3>Оформление заказа</h3>
         <p>Всего позиций : {{ Items.length }}</p>
-        <p class="text-pink-600">на сумму {{ totalPrice}} руб</p>
-        <p class="text-pink-700"> скидка: {{ Items.length >= 5 ? `10%` : `0 руб. Действует только при покупке от 5
-          товаров` }} </p>
+        <p class="text-pink-600">на сумму {{ totalPrice }} руб</p>
         <p class="text-pink-800">Итого: {{ Items.length >= 5 ? totalPrice - (totalPrice / 100 * 10) : totalPrice }}
           руб </p>
         <button @click="paymentButton" :style="{
-          opacity: Items.length > 0 ? '1' : '0.5',
-          cursor: Items.length === 0 ? 'default' : 'pointer',
-        }">
+            opacity: Items.length > 0 ? '1' : '0.5',
+            cursor: Items.length === 0 ? 'default' : 'pointer',
+          }">
           Оплатить
         </button>
+        <p class="text-pink-700 text-center"> Скидка: {{ Items.length >= 5 ? `10%` : `0 руб. Действует только при
+          покупке от 5
+          товаров` }} </p>
       </div>
+
+
     </div>
     <Uinput v-if="isPaymentFormVisible" :closeForm="closePaymentForm" :OrderArray="Items" :TotalPrice="totalPrice"
-      :Items="Items" :email="userInfo" />
+      :Items="Items" :email="userInfo" :price="totalPrice" />
     <!-- Добавлено условное отображение -->
   </div>
 </template>
@@ -127,7 +132,12 @@ button {
   background-color: rgb(236 236 236);
   border-radius: 20px;
   overflow-y: scroll;
+  max-height: 70vh;
+  scrollbar-color: rgb(0, 0, 0) rgb(149, 149, 149);
+  scrollbar-width: thin;
+
 }
+
 
 .basketright {
   width: 30%;

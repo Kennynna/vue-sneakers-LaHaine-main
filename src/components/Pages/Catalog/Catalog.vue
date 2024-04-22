@@ -12,7 +12,10 @@ const loadData = async () => {
 };
 
 // Вызовите асинхронную функцию внутри onMounted
-onMounted(loadData);
+onMounted(() =>{
+  loadData()
+  window.scroll(0,0)
+});
 const changeModel = ref('')
 
 

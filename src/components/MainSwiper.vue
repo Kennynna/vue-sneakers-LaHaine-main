@@ -65,6 +65,7 @@ export default {
 .swiper__content{
   animation-name: bos;
   animation-duration: 2s;
+  will-change: bos;
 }
 @keyframes bos{
 from{

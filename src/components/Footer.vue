@@ -114,6 +114,14 @@
 </template>
 
 <style scoped>
+a{
+  transition: 0.3;
+}
+li>a:hover{
+  color: rgb(72, 42, 42);
+  
+
+}
 .info {
   margin-top: 20px;
   padding: 10px 20px;

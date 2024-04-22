@@ -54,7 +54,7 @@ window.addEventListener('click', (event) => {
         </div>
         <div class="basket__number">{{ cartItemCount }}</div>
         <router-link to="/basket">
-          <svg width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+          <svg class="basket-svg" width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
             transform="rotate(0)">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -83,10 +83,10 @@ window.addEventListener('click', (event) => {
         <div class="user__action-list" v-if="isUserMenu">
           <ul class="user__action-list-ul">
             <router-link to="/auth">
-              <li @click="showUserMenu" class="user__sign">Войти</li>
+              <li v-if="!email" @click="showUserMenu" class="user__sign">Войти</li>
             </router-link>
-            <li class="user__exit" @click="exit(); showUserMenu()">Выход</li>
-            <li>{{ email }}</li>
+            <li v-if="email" class="user__exit" @click="exit(); showUserMenu">Выход</li>
+            <li v-if="email">{{ email }}</li>
           </ul>
         </div>
       </div>
@@ -96,6 +96,9 @@ window.addEventListener('click', (event) => {
 </template>
 
 <style scoped>
+.basket-svg:hover path{
+  stroke: rgb(152, 152, 152);
+}
 .user__email {
   white-space: nowrap;
   /* Текст не переносится */
@@ -298,4 +301,5 @@ img {
 
 .header__items-profile {
   display: none;
-}</style>
+}
+</style>

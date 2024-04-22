@@ -46,6 +46,11 @@ export default {
 
 
 <style scoped>
+.close__svg:hover path {
+  stroke: #6e1010;
+  /* Замените на желаемый цвет при наведении */
+}
+
 span {
   color: rgb(255, 0, 0);
   font-weight: 800;
@@ -65,8 +70,6 @@ img {
 .close__svg {
   border: none;
   cursor: pointer;
-
-
 }
 
 .basketItem {

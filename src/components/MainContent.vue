@@ -42,6 +42,8 @@ const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0,
 </template>
 
 <style>
+
+
 .logo-text {
   opacity: 0;
   transform-style: flat;

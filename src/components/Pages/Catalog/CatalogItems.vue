@@ -163,6 +163,7 @@ p {
 
   border-radius: 10px;
   transition: 0.2s;
+  max-height: 500px;
 }
 
 .item:hover {
@@ -173,7 +174,7 @@ p {
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin: 0;
   gap: 1px;
   max-width: 250px;
