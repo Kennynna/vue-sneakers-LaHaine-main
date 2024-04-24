@@ -122,6 +122,7 @@ li>a:hover{
   
 
 }
+/* Main exp */
 .info {
   margin-top: 20px;
   padding: 10px 20px;
