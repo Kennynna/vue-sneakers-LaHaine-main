@@ -14,11 +14,7 @@ const formatDate = (dateString) => {
     return date.toLocaleString('ru-RU', options);
 };
 const isChecked = ref(false)
-if (!props.order.checked) {
-    isChecked.value = false
-} else {
-    isChecked.value = true
-}
+isChecked.value = props.order.checked;
 const onChecked = async () => {
     if (isChecked.value) {
         return;
