@@ -45,7 +45,7 @@ const onChecked = async () => {
         <div class="order__img">
             <ul class="flex flex-col gap-10" v-for="(item, index) in order.OrderArray" :key="index">
                 <div class="flex order__item  gap-1 ">
-                    <img :src="item.imgUrl" alt="">
+                    <img :src="item.imgUrl[0]" alt="">
                     <ul>
                         <li class="oreder__img-title w-52">{{ item.title }}
                         </li>

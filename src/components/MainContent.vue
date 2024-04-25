@@ -31,7 +31,7 @@ const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0,
       </Item>
     </div>
     <div class="logo-text-block">
-      <h2 class="logo-text logo-name font-bold text-9xl mt-40 tracking-wide"> La Haine</h2>
+      <h2 class="laHaine logo-text logo-name font-bold  mt-40 tracking-wide"> La Haine</h2>
       <h2 class="logo-text logo-name font-bold text-3xl tracking-wide">SINCE 2016</h2>
       <p class="logo-desc logo-name font-bold text-6xl mb-20 mt-10 tracking-wide"> The World Is <span class="par"><span
             class="Y">Y</span></span>our</p>
@@ -42,7 +42,10 @@ const sortedItems = items.value.sort((a, b) => b.buyCount - a.buyCount).slice(0,
 </template>
 
 <style>
+.laHaine{
+  font-size: clamp(3.125rem, 2.411rem + 3.57vw, 5.625rem)
 
+}
 
 .logo-text {
   opacity: 0;
@@ -291,5 +294,26 @@ h2 {
 .newItems {
   padding-top: 40px;
   font-size: clamp(1.625rem, 1.307rem + 1.59vw, 2.5rem)
+}
+
+@media (max-width: 668px) and (min-width:497px) {
+  .Y::before {
+    position: absolute;
+    content: '';
+    top: 30px;
+    left: -285px;
+    height: 10px;
+
+  }
+}
+@media (max-width: 408px) and (min-width:356px) {
+  .Y::before {
+    position: absolute;
+    content: '';
+    top: 30px;
+    left: -210px;
+    height: 10px;
+
+  }
 }
 </style>

@@ -5,8 +5,8 @@ import { useAuthStore } from './auth'; // Путь к вашему файлу au
 import Footer from './components/Footer.vue';
 const authStore = useAuthStore();
 
+const isAdmin = ref(false)
 const User = ref({})
-
 //Данные юзера из auth
 onMounted(() => {
   const storedUserInfo = localStorage.getItem('userInfo');
@@ -17,7 +17,12 @@ onMounted(() => {
     const signUp = async () => {
       //загрузка данных на наш бэк
       try {
-        console.log(User)
+        console.log(User.value.email)
+        if(User.value.email === "kennynna7@mail.ru"){
+          isAdmin.value = true
+        } else {
+          isAdmin.value = false
+        }
         await authStore.auth({ email: User.value.email, password: User.value.password }, 'signInWithPassword')
       } catch {
         console.log('qwe')
@@ -25,7 +30,10 @@ onMounted(() => {
     }
     signUp()
   }
+  console.log(isAdmin.value)
 });
+
+
 
 // Создаем вычисляемое свойство для доступа к email пользователя
 
@@ -54,7 +62,7 @@ const toggleMobileMenu = () => {
       <router-link class="header__link-item  " to="/catalog" @click="toggleMobileMenu">Каталог</router-link>
       <router-link class="header__link-item  " to="/contacts" @click="toggleMobileMenu">Контакты</router-link>
     </div>
-    <HeaderVue :email="authStore.userInfo.email" :exit="authStore.exitUser" />
+    <HeaderVue :email="authStore.userInfo.email" :exit="authStore.exitUser" :admin="isAdmin" />
     <router-view></router-view>
     <Footer></Footer>
 
@@ -184,7 +192,7 @@ const toggleMobileMenu = () => {
     margin: 0 10px;
 
     margin-top: 20px;
-    padding: 5px 5;
+    padding: 5px 5px;
     border-radius: 10px;
   }
 

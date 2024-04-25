@@ -12,7 +12,8 @@ const cartItemCount = computed(() => store.state.cartItemCount);
 
 const props = defineProps({
   email: String,
-  exit: Function
+  exit: Function,
+  admin: Boolean
 
 });
 
@@ -46,7 +47,7 @@ window.addEventListener('click', (event) => {
         <router-link to="/about">О нас</router-link>
         <router-link to="/catalog">Каталог</router-link>
         <router-link to="/contacts">Контакты</router-link>
-
+        <router-link v-if="admin" to="/admin">Админ</router-link>
       </div>
       <div class="basket">
         <div v-if="store.state.isItemAdded" class="basket__notification">

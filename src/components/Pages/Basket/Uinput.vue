@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios';
-import { onMounted, onUnmounted } from 'vue';
 export default {
     props: {
         closeForm: Function,
